@@ -10,10 +10,6 @@ import Signup from '../auth/Signup'
 import Category from '../category/Category'
 import Projects from '../projects/Projects'
 
-import '../styles/reset.css'
-// import '../styles/normalize.css'
-import '../styles/main.css'
-
 const App = () => (
   <BrowserRouter>
     <div className="App">
