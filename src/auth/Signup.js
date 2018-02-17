@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-
-const cremeLight = '#fff1bc'
-const skyBlue = '#90bff3'
-const darkBlue = '#3e5186'
+import {
+  creme,
+  darkBlue,
+  skyBlue
+} from '../constants/colors'
 
 const Wrapper = styled.div`
   background-color: ${skyBlue};
-  color: ${cremeLight};
+  color: ${creme};
   display: flex;
   align-items: center;
   height: 100%;
@@ -62,11 +63,11 @@ const TextField = styled.input`
   font-size: 22px;
   /*add dirty color*/
   background-color: #9ec4ee;
-  color: ${cremeLight};
+  color: ${creme};
   border: 1px solid ${darkBlue};
 
   &::placeholder {
-    color: ${cremeLight};
+    color: ${creme};
   }
 `
 
@@ -75,7 +76,7 @@ const Action = styled.button`
   max-width: 180px;
   font-size: 22px;
   background-color: ${darkBlue};
-  color: ${cremeLight};
+  color: ${creme};
   border-radius: 10px;
   padding: 20px;
 `

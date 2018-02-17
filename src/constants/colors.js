@@ -1,0 +1,10 @@
+// Colors
+export const creme = '#fff1bc'
+export const gold = '#f2d155'
+export const goldLight = '#FFDE62'
+export const bloody = '#8b0505'
+export const skyBlue = '#90bff3'
+export const darkBlue = '#3e5186'
+export const brownLight = '#603913'
+export const brownMedium = '#54310f'
+export const brownDark = '#48290c'

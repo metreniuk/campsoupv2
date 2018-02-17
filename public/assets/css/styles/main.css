@@ -3,6 +3,14 @@
   src: url('/assets/css/fonts/Blogger_Sans-Light.otf');
 }
 @font-face {
+  font-family: BloggerSansMedium;
+  src: url('/assets/css/fonts/Blogger_Sans-Medium.otf');
+}
+@font-face {
+  font-family: BloggerSans;
+  src: url('/assets/css/fonts/Blogger_Sans.otf');
+}
+@font-face {
   font-family: MyriadPro;
   src: url('/assets/css/fonts/MyriadPro-Regular.otf');
 }

@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-
-const creme = '#fff1bc'
-const gold = '#f2d155'
-const goldLight = '#FFDE62'
-const bloody = '#8b0505'
+import {
+  creme,
+  bloody,
+  gold,
+  goldLight
+} from '../constants/colors'
 
 const Wrapper = styled.div`
   background-color: ${creme};
