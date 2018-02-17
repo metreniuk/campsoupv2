@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import chevronDown from '@fortawesome/fontawesome-free-solid/faChevronCircleDown'
+import starSolid from '@fortawesome/fontawesome-free-solid/faStar'
+import cloudSolid from '@fortawesome/fontawesome-free-solid/faCloud'
+import starRegular from '@fortawesome/fontawesome-free-regular/faStar'
 import {
   amber,
-  canary,
-  brownLight
+  canary
 } from '../constants/colors'
 
 const Header = styled.header`
@@ -15,25 +19,27 @@ const Header = styled.header`
   height: 30px;
 `
 
-const HeaderButton = styled.div`
+const ExpandButton = styled.div`
   padding: 2px 20px;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
 
-const ExpandButton = styled.button`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: ${brownLight};
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const HeaderItem = styled(Link)`
   padding: 8px 10px;
-  border-left: 1px solid ${brownLight};
+  border-left: 1px solid ${canary};
   text-transform: uppercase;
   color: ${canary};
 
   &:hover {
-    background-color: ${brownLight};
+    background-color: ${canary};
+    color: ${amber};
   }
 `
 
@@ -72,7 +78,7 @@ const TileStar = styled.div`
   position: absolute;
   top: 4px;
   right: 4px;
-  background-color: ${canary};
+  font-size: 8px;
 `
 
 const Tile = styled(Link)`
@@ -113,16 +119,20 @@ const Wrapper = styled.div`
 const BottomPanel = () => (
   <Wrapper>
     <Header>
-      <HeaderButton>
-        <ExpandButton />
-      </HeaderButton>
+      <ExpandButton>
+        <FontAwesomeIcon icon={chevronDown} />
+      </ExpandButton>
       <HeaderItem to="/events">События</HeaderItem>
       <HeaderItem to="/sport">Спорт</HeaderItem>
     </Header>
     <Filters>
       <FiltersHeading>Фильтр:</FiltersHeading>
-      <FilterItem>Star</FilterItem>
-      <FilterItem>Weather</FilterItem>
+      <FilterItem>
+        <FontAwesomeIcon icon={starSolid} />
+      </FilterItem>
+      <FilterItem>
+        <FontAwesomeIcon icon={cloudSolid} />
+      </FilterItem>
       <FilterItem>Характеристики</FilterItem>
       <FilterItem>Возраст</FilterItem>
     </Filters>
@@ -130,11 +140,15 @@ const BottomPanel = () => (
     <TilesSection>
       <Tile to="/">
         Игра Тратата
-        <TileStar />
+        <TileStar>
+          <FontAwesomeIcon icon={starSolid} />
+        </TileStar>
       </Tile>
       <Tile to="/">
         Игра Тратата
-        <TileStar />
+        <TileStar>
+          <FontAwesomeIcon icon={starRegular} />
+        </TileStar>
       </Tile>
       <Tile to="/">
         Игра Тратата

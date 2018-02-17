@@ -75,7 +75,7 @@ const Sidebar = () => {
   return (
     <Wrapper>
       <LogoLink to="/">
-        <img src="/assets/images/soup_logo.png" />
+        <img src="/assets/images/soup_logo.png" alt="Logo" />
       </LogoLink>
       <Menu>
         <MenuHeading>Проекты</MenuHeading>
