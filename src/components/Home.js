@@ -2,15 +2,23 @@ import React from 'react'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import BottomPanel from './BottomPanel'
+import HomeNav from './HomeNav'
 
 const Body = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
+  position: relative;
   flex: 1 1 100%;
 `
 
 const SidebarWrapper = styled.div`
   flex: 1 1 auto;
+  align-self: flex-end;
+`
+
+const BottomPanelWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 `
 
 const Wrapper = styled.div`
@@ -23,7 +31,10 @@ const Home = () => (
       <Sidebar />
     </SidebarWrapper>
     <Body>
-      <BottomPanel />
+      <HomeNav />
+      <BottomPanelWrapper>
+        <BottomPanel />
+      </BottomPanelWrapper>
     </Body>
   </Wrapper>
 )

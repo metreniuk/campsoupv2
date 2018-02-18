@@ -7,7 +7,7 @@ import {
   brownMedium,
   brownDark
 } from '../constants/colors'
-import navItems from '../constants/navigation'
+import CategoryNavList from './CategoryNavList'
 
 const LogoLink = styled(Link)`
   width: 88px;
@@ -65,38 +65,34 @@ const Wrapper = styled.div`
   }
 `
 
-const Sidebar = () => {
-  const navLinks = navItems
-    .map(({en, rus}) => ({
-      name: rus,
-      link: `/${en}`
-    }))
-
-  return (
-    <Wrapper>
-      <LogoLink to="/">
-        <img src="/assets/images/soup_logo.png" alt="Logo" />
-      </LogoLink>
-      <Menu>
-        <MenuHeading>Проекты</MenuHeading>
-        <Link to="/projects">
-          <MenuItem>Последний</MenuItem>
-        </Link>
-      </Menu>
-      <Line />
-      <Menu>
-        <MenuHeading>База Данных</MenuHeading>
-        {navLinks.map(({name, link}) => (
-          <Link
-            key={name}
-            to={link}
-          >
-            <MenuItem>{name}</MenuItem>
-          </Link>
-        ))}
-      </Menu>
-    </Wrapper>
-  )
-}
+const Sidebar = () => (
+  <Wrapper>
+    <LogoLink to="/">
+      <img src="/assets/images/soup_logo.png" alt="Logo" />
+    </LogoLink>
+    <Menu>
+      <MenuHeading>Проекты</MenuHeading>
+      <Link to="/projects">
+        <MenuItem>Последний</MenuItem>
+      </Link>
+    </Menu>
+    <Line />
+    <Menu>
+      <MenuHeading>База Данных</MenuHeading>
+      <CategoryNavList>
+        {navLinks => navLinks.map(
+          ({name, link}) => (
+            <Link
+              key={name}
+              to={link}
+            >
+              <MenuItem>{name}</MenuItem>
+            </Link>
+          )
+        )}
+      </CategoryNavList>
+    </Menu>
+  </Wrapper>
+)
 
 export default Sidebar

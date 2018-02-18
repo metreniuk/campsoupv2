@@ -99,11 +99,15 @@ const Tile = styled(Link)`
 const TilesSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  align-content: flex-start;
   height: 190px;
   overflow: auto;
   padding: 20px;
   background-color: ${canary};
+
+  ${Tile} {
+    margin: 0 10px 10px 0;
+  }
 `
 
 const Wrapper = styled.div`
