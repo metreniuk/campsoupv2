@@ -1,8 +1,11 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import styled from 'styled-components'
+
 import Sidebar from './Sidebar'
 import BottomPanel from './BottomPanel'
 import HomeNav from './HomeNav'
+import Category from '../category/Category'
 
 const Body = styled.div`
   position: relative;
@@ -25,13 +28,14 @@ const Wrapper = styled.div`
   display: flex;
 `
 
-const Home = () => (
+const Home = ({match}) => (
   <Wrapper>
     <SidebarWrapper>
       <Sidebar />
     </SidebarWrapper>
     <Body>
-      <HomeNav />
+      <Route path={match.path} exact component={HomeNav} />
+      <Route path={`${match.path}:categoryId`} component={Category} />
       <BottomPanelWrapper>
         <BottomPanel />
       </BottomPanelWrapper>
