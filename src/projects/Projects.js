@@ -1,7 +1,12 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 
-const Projects = () => (
-  <div> Projects</div>
+import Project from './Project'
+
+const Projects = ({match}) => (
+  <div>
+    <Route path={`${match.path}/:projectId`} component={Project} />
+  </div>
 )
 
 export default Projects

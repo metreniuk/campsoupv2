@@ -33,8 +33,8 @@ var Cell = styled.div`
   padding: 6px 8px;
   font-size: 18px;
   width: 180px;
-  border-right: 1px solid ${bronze};
   height: 36px;
+  border-right: 1px solid ${bronze};
 
   &:first-child, &:nth-child(2), &:last-child {
     border-right: none;
