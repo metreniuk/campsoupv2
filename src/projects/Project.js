@@ -5,6 +5,12 @@ import {
   bronze,
   creme
 } from '../constants/colors'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import pencil from '@fortawesome/fontawesome-free-solid/faPencilAlt'
+import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt'
+import plus from '@fortawesome/fontawesome-free-solid/faPlus'
+import save from '@fortawesome/fontawesome-free-solid/faSave'
+import print from '@fortawesome/fontawesome-free-solid/faPrint'
 
 var Title = styled.h1`
   font-family: 'Neucha', cursive;
@@ -42,9 +48,14 @@ var HeadingCell = styled(Cell)`
   border-radius: 8px 8px 0 0;
   border-top: 1px solid ${bronze};
   background-color: ${({bgColor = creme}) => bgColor};
+  overflow: visible;
 
   &:first-child {
     border-left: 1px solid ${bronze};
+  }
+
+  &:last-child {
+    position: relative;
   }
 `
 
@@ -73,15 +84,29 @@ var CellAction = styled.button`
     background-color: ${bronze};
   }
 `
-// TODO Add controls
+// TODO Add Color picker
+var CellMenuItem = styled.button`
+  font-size: 14px;
+  color: ${bronze};
+  border-left: 1px solid ${bronze};
+  border-top: 1px solid ${bronze};
+  padding: 2px;
+  width: 22px;
+  background-color: ${({bgColor = creme}) => bgColor};
+`
+
 var CellMenu = styled.div`
+  display: none;
   position: absolute;
   bottom: 0;
   right: 0;
+
+  ${HeadingCell}:hover & {
+    display: block;
+  }
 `
 
 var Row = styled.div`
-  flex: 1 100%;
   display: flex;
 
   &:first-child {
@@ -101,6 +126,39 @@ var Row = styled.div`
       border-bottom: 1px solid ${bronze};
     }
   }
+`
+
+var Control = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 0 4px 4px 0;
+  transition: all .2s;
+  background-color: ${creme};
+  color: ${bronze};
+  border-right: 1px solid ${bronze};
+  border-bottom: 1px solid ${bronze};
+
+  &:hover, &:active {
+    cursor: pointer;
+    color: ${creme};
+    background-color: ${bronze};
+  }
+
+  &:first-child {
+    border-top: 1px solid ${bronze};
+  }
+`
+
+var ControlsGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 12px;
+  right: -21px;
 `
 
 var Table = styled.div`
@@ -131,7 +189,15 @@ const Project = () => (
         <HeadingCell bgColor="#ccff90">Возраст</HeadingCell>
         <HeadingCell bgColor="#ffd180">
           Инвентарь
-          <CellMenu> hello</CellMenu>
+          <CellMenu>
+            <CellMenuItem bgColor="#ffd180"><FontAwesomeIcon icon={trash} /></CellMenuItem>
+            <CellMenuItem bgColor="#ffd180"><FontAwesomeIcon icon={pencil} /></CellMenuItem>
+          </CellMenu>
+          <ControlsGroup>
+            <Control><FontAwesomeIcon icon={plus} /></Control>
+            <Control><FontAwesomeIcon icon={save} /></Control>
+            <Control><FontAwesomeIcon icon={print} /></Control>
+          </ControlsGroup>
         </HeadingCell>
       </Row>
       <Row>
