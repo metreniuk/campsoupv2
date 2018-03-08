@@ -81,8 +81,8 @@ var HomeNav = () => (
         {
           navLinks => navLinks
             .map(item => ({
-              icon: icons.get(item.id),
-              ...item
+              ...item,
+              icon: icons.get(item.id)
             }))
             .map(({name, link, icon}) => (
               <Tile key={name} to={link}>

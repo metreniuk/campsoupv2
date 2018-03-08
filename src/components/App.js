@@ -8,6 +8,7 @@ import Home from './Home'
 import Welcome from './Welcome'
 import Signin from '../auth/Singin'
 import Signup from '../auth/Signup'
+import Root from './Root'
 
 const App = () => (
   <BrowserRouter>
@@ -16,7 +17,7 @@ const App = () => (
         <Route path="/welcome" component={Welcome}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/signin" component={Signin}/>
-        <Route path="/" component={Home}/>
+        <Route path="/" component={Root}/>
       </Switch>
     </div>
   </BrowserRouter>
