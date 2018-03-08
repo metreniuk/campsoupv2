@@ -1,34 +1,34 @@
 export const events = {
   en: 'events',
-  rus: 'события'
+  rus: 'события',
 }
 export const sport = {
   en: 'sport',
-  rus: 'спорт'
+  rus: 'спорт',
 }
 export const scenes = {
   en: 'scenes',
-  rus: 'сценки'
+  rus: 'сценки',
 }
 export const lessons = {
   en: 'lessons',
-  rus: 'уроки'
+  rus: 'уроки',
 }
 export const songs = {
   en: 'songs',
-  rus: 'песни'
+  rus: 'песни',
 }
 export const fellowship = {
   en: 'fellowship',
-  rus: 'общение'
+  rus: 'общение',
 }
 export const inventory = {
   en: 'inventory',
-  rus: 'инвентарь'
+  rus: 'инвентарь',
 }
 export const other = {
   en: 'other',
-  rus: 'полезное'
+  rus: 'полезное',
 }
 
 export default [
@@ -39,5 +39,5 @@ export default [
   songs,
   fellowship,
   inventory,
-  other
+  other,
 ]
