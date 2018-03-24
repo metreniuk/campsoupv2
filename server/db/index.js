@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const dbConfigs = require('../.private_config.json')
-const { Entity } = require('./models')
+const dbConfigs = require('../config.json')
 
 const { dbUser, dbPassword } = dbConfigs
 
@@ -9,11 +8,10 @@ const connectToDb = () => {
   const db = mongoose.connection
   db.on('error', console.error.bind(console, 'connection error:'))
   db.once('open', () => {
-    console.log('connected!')
+    console.log('Connected to DB!')
   })
 }
 
 module.exports = {
   connectToDb,
-  Entity,
 }

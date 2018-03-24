@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const entitySchema = mongoose.Schema({
+const EntitySchema = mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -20,13 +20,15 @@ const entitySchema = mongoose.Schema({
     type: String,
     validate: {
       validator: v => /\d-\d/.test(v),
-      message: '{VALUE} is not a valid phone number!',
+      message: '{VALUE} is not a valid age!',
     },
   },
   tags: [{ title: String }],
   images: [{ src: String }],
-})
+}, { timestamps: true })
+
+const Entity = mongoose.model('Entity', EntitySchema)
 
 module.exports = {
-  entitySchema,
+  Entity,
 }
