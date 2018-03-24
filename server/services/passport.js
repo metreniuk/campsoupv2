@@ -6,16 +6,21 @@ const { User } = require("../models/user")
 
 function init() {
   const localOptions = { usernameField: "email" }
-  const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
-    User.findOne({ email })
-      .then(user => {
-        user
-          .checkPassword(password)
-          .then(isValid => done(null, isValid ? user : false))
-          .catch(done)
-      })
-      .catch(done)
-  })
+  const localLogin = new LocalStrategy(
+    localOptions,
+    (email, password, done) => {
+      User.findOne({ email })
+        .then(user => {
+          user
+            ? user
+                .checkPassword(password)
+                .then(isValid => done(null, isValid ? user : false))
+                .catch(done)
+            : done(null, false)
+        })
+        .catch(done)
+    }
+  )
 
   const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromHeader("authorization"),

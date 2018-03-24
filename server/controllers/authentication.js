@@ -28,8 +28,12 @@ function signup(req, res) {
 
       return user
         .save()
-        .then(savedUser => res.status(201).json({ token: generateToken(savedUser) }))
-        .catch(() => res.status(422).json({ message: "Could not save the user" }))
+        .then(savedUser =>
+          res.status(201).json({ token: generateToken(savedUser) })
+        )
+        .catch(() =>
+          res.status(422).json({ message: "Could not save the user" })
+        )
     })
     .catch(() => res.status(500).json({ message: "Something went wrong" }))
 }

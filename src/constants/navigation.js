@@ -31,4 +31,13 @@ export const other = {
   rus: "полезное",
 }
 
-export default [events, sport, scenes, lessons, songs, fellowship, inventory, other]
+export default [
+  events,
+  sport,
+  scenes,
+  lessons,
+  songs,
+  fellowship,
+  inventory,
+  other,
+]

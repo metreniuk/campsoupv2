@@ -27,8 +27,7 @@ const Title = styled.h1`
 `
 
 const SubContent = styled.div`
-  width: 100%;
-  max-width: 285px;
+  width: 285px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,7 +105,7 @@ type Props = {
   handleSubmit: (e: SyntheticEvent<>) => void,
 }
 
-const SignupPage = ({
+const SigninPage = ({
   email,
   password,
   handleEmailChange,
@@ -116,9 +115,8 @@ const SignupPage = ({
   <Layout>
     <Wrapper>
       <Content>
-        <Title>Быстрая регистрация</Title>
+        <Title>Вход</Title>
         <SubContent>
-          <SubTitle>это займет всего минуту</SubTitle>
           <Socials>
             <SocialIcon src="/assets/images/vk_social.png" />
             <SocialIcon src="/assets/images/fb_social.png" />
@@ -145,4 +143,4 @@ const SignupPage = ({
   </Layout>
 )
 
-export default SignupPage
+export default SigninPage
