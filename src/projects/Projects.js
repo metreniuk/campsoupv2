@@ -1,9 +1,9 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React from "react"
+import { Route } from "react-router-dom"
 
-import Project from './Project'
+import Project from "./Project"
 
-const Projects = ({match}) => (
+const Projects = ({ match }) => (
   <div>
     <Route path={`${match.path}/:projectId`} component={Project} />
   </div>

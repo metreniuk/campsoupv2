@@ -1,15 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import chevronDown from '@fortawesome/fontawesome-free-solid/faChevronCircleDown'
-import starSolid from '@fortawesome/fontawesome-free-solid/faStar'
-import cloudSolid from '@fortawesome/fontawesome-free-solid/faCloud'
-import starRegular from '@fortawesome/fontawesome-free-regular/faStar'
-import {
-  amber,
-  canary
-} from '../constants/colors'
+import React from "react"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
+import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import chevronDown from "@fortawesome/fontawesome-free-solid/faChevronCircleDown"
+import starSolid from "@fortawesome/fontawesome-free-solid/faStar"
+import cloudSolid from "@fortawesome/fontawesome-free-solid/faCloud"
+import starRegular from "@fortawesome/fontawesome-free-regular/faStar"
+import { amber, canary } from "../constants/colors"
 
 const Header = styled.header`
   background-color: ${amber};
@@ -45,7 +42,7 @@ const HeaderItem = styled(Link)`
 
 const FiltersHeading = styled.h5`
   display: flex;
-  align-items: center;  
+  align-items: center;
 `
 
 const FilterItem = styled.button`
@@ -111,7 +108,7 @@ const TilesSection = styled.section`
 `
 
 const Wrapper = styled.div`
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
   font-size: 16px;
   width: 100%;
 
@@ -173,13 +170,16 @@ const BottomPanel = () => (
       <Tile to="/">
         Игра с длинным названием
         <TileStar />
-      </Tile><Tile to="/">
+      </Tile>
+      <Tile to="/">
         Игра с длинным названием
         <TileStar />
-      </Tile><Tile to="/">
+      </Tile>
+      <Tile to="/">
         Игра с длинным названием
         <TileStar />
-      </Tile><Tile to="/">
+      </Tile>
+      <Tile to="/">
         Игра с длинным названием
         <TileStar />
       </Tile>

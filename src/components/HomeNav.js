@@ -1,22 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import calendar from '@fortawesome/fontawesome-free-solid/faCalendarAlt'
-import ball from '@fortawesome/fontawesome-free-solid/faVolleyballBall'
-import theatre from '@fortawesome/fontawesome-free-brands/faPiedPiperAlt'
-import pencil from '@fortawesome/fontawesome-free-solid/faPencilAlt'
-import music from '@fortawesome/fontawesome-free-solid/faMusic'
-import comment from '@fortawesome/fontawesome-free-regular/faComment'
-import archive from '@fortawesome/fontawesome-free-solid/faArchive'
-import lightbulb from '@fortawesome/fontawesome-free-solid/faLightbulb'
-import {
-  canary,
-  amber,
-  creme
-} from '../constants/colors'
-import * as Navigation from '../constants/navigation'
-import CategoryNavList from './CategoryNavList'
+import React from "react"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
+import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import calendar from "@fortawesome/fontawesome-free-solid/faCalendarAlt"
+import ball from "@fortawesome/fontawesome-free-solid/faVolleyballBall"
+import theatre from "@fortawesome/fontawesome-free-brands/faPiedPiperAlt"
+import pencil from "@fortawesome/fontawesome-free-solid/faPencilAlt"
+import music from "@fortawesome/fontawesome-free-solid/faMusic"
+import comment from "@fortawesome/fontawesome-free-regular/faComment"
+import archive from "@fortawesome/fontawesome-free-solid/faArchive"
+import lightbulb from "@fortawesome/fontawesome-free-solid/faLightbulb"
+import { canary, amber, creme } from "../constants/colors"
+import * as Navigation from "../constants/navigation"
+import CategoryNavList from "./CategoryNavList"
 
 var Wrapper = styled.div`
   background-color: ${creme};
@@ -57,7 +53,7 @@ var TileIconWrapper = styled.div`
 `
 
 var TileText = styled.h3`
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
   font-size: 22px;
   text-transform: uppercase;
   color: ${canary};
@@ -71,20 +67,20 @@ var icons = new Map([
   [Navigation.songs.en, music],
   [Navigation.fellowship.en, comment],
   [Navigation.inventory.en, archive],
-  [Navigation.other.en, lightbulb]
+  [Navigation.other.en, lightbulb],
 ])
 
 var HomeNav = () => (
   <Wrapper>
     <Content>
       <CategoryNavList>
-        {
-          navLinks => navLinks
+        {navLinks =>
+          navLinks
             .map(item => ({
               ...item,
-              icon: icons.get(item.id)
+              icon: icons.get(item.id),
             }))
-            .map(({name, link, icon}) => (
+            .map(({ name, link, icon }) => (
               <Tile key={name} to={link}>
                 <TileIconWrapper>
                   <FontAwesomeIcon icon={icon} />

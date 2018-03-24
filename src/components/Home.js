@@ -1,15 +1,12 @@
-import React from 'react'
-import {
-  Route,
-  Switch
-} from 'react-router-dom'
-import styled from 'styled-components'
+import React from "react"
+import { Route, Switch } from "react-router-dom"
+import styled from "styled-components"
 
-import Sidebar from './Sidebar'
-import BottomPanel from './BottomPanel'
-import HomeNav from './HomeNav'
-import Projects from '../projects/Projects'
-import Category from '../category/Category'
+import Sidebar from "./Sidebar"
+import BottomPanel from "./BottomPanel"
+import HomeNav from "./HomeNav"
+import Projects from "../projects/Projects"
+import Category from "../category/Category"
 
 const Body = styled.div`
   position: relative;
@@ -32,7 +29,7 @@ const Wrapper = styled.div`
   display: flex;
 `
 
-const Home = ({match}) => (
+const Home = ({ match }) => (
   <Wrapper>
     <SidebarWrapper>
       <Sidebar />
@@ -40,7 +37,7 @@ const Home = ({match}) => (
     <Body>
       <Switch>
         <Route path={match.path} exact component={HomeNav} />
-        <Route path={`${match.path}projects`} component={Projects}/>
+        <Route path={`${match.path}projects`} component={Projects} />
         <Route path={`${match.path}:categoryId`} component={Category} />
       </Switch>
       <BottomPanelWrapper>

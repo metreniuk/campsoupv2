@@ -1,13 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import {
-  creme,
-  brownLight,
-  brownMedium,
-  brownDark
-} from '../constants/colors'
-import CategoryNavList from './CategoryNavList'
+import React from "react"
+import { Link } from "react-router-dom"
+import styled from "styled-components"
+import { creme, brownLight, brownMedium, brownDark } from "../constants/colors"
+import CategoryNavList from "./CategoryNavList"
 
 const LogoLink = styled(Link)`
   width: 88px;
@@ -19,14 +14,14 @@ const Menu = styled.ul`
 `
 
 const MenuHeading = styled.li`
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
   font-size: 22px;
   text-transform: uppercase;
   padding: 10px 0;
 `
 
 const MenuItem = styled.li`
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
   font-size: 18px;
   padding: 10px 0;
   color: ${creme};
@@ -80,16 +75,13 @@ const Sidebar = () => (
     <Menu>
       <MenuHeading>База Данных</MenuHeading>
       <CategoryNavList>
-        {navLinks => navLinks.map(
-          ({name, link}) => (
-            <Link
-              key={name}
-              to={link}
-            >
+        {navLinks =>
+          navLinks.map(({ name, link }) => (
+            <Link key={name} to={link}>
               <MenuItem>{name}</MenuItem>
             </Link>
-          )
-        )}
+          ))
+        }
       </CategoryNavList>
     </Menu>
   </Wrapper>

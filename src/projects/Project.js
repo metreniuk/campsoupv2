@@ -1,19 +1,16 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-import {
-  bronze,
-  creme
-} from '../constants/colors'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import pencil from '@fortawesome/fontawesome-free-solid/faPencilAlt'
-import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt'
-import plus from '@fortawesome/fontawesome-free-solid/faPlus'
-import save from '@fortawesome/fontawesome-free-solid/faSave'
-import print from '@fortawesome/fontawesome-free-solid/faPrint'
+import { bronze, creme } from "../constants/colors"
+import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import pencil from "@fortawesome/fontawesome-free-solid/faPencilAlt"
+import trash from "@fortawesome/fontawesome-free-solid/faTrashAlt"
+import plus from "@fortawesome/fontawesome-free-solid/faPlus"
+import save from "@fortawesome/fontawesome-free-solid/faSave"
+import print from "@fortawesome/fontawesome-free-solid/faPrint"
 
 var Title = styled.h1`
-  font-family: 'Neucha', cursive;
+  font-family: "Neucha", cursive;
   font-size: 68px;
   color: ${bronze};
 `
@@ -47,7 +44,7 @@ var HeadingCell = styled(Cell)`
   font-size: 22px;
   border-radius: 8px 8px 0 0;
   border-top: 1px solid ${bronze};
-  background-color: ${({bgColor = creme}) => bgColor};
+  background-color: ${({ bgColor = creme }) => bgColor};
   overflow: visible;
 
   &:first-child {
@@ -62,9 +59,10 @@ var HeadingCell = styled(Cell)`
 var IndexCell = styled(Cell)`
   width: 20px;
   border-radius: 4px 0 0 4px;
-  transition: all .2s;
+  transition: all 0.2s;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     cursor: pointer;
     color: ${creme};
     background-color: ${bronze};
@@ -77,9 +75,10 @@ var CellAction = styled.button`
   color: ${bronze};
   background-color: ${creme};
   border: 1px solid ${bronze};
-  transition: all .2s;
+  transition: all 0.2s;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     color: ${creme};
     background-color: ${bronze};
   }
@@ -92,7 +91,7 @@ var CellMenuItem = styled.button`
   border-top: 1px solid ${bronze};
   padding: 2px;
   width: 22px;
-  background-color: ${({bgColor = creme}) => bgColor};
+  background-color: ${({ bgColor = creme }) => bgColor};
 `
 
 var CellMenu = styled.div`
@@ -136,13 +135,14 @@ var Control = styled.button`
   height: 30px;
   font-size: 12px;
   border-radius: 0 4px 4px 0;
-  transition: all .2s;
+  transition: all 0.2s;
   background-color: ${creme};
   color: ${bronze};
   border-right: 1px solid ${bronze};
   border-bottom: 1px solid ${bronze};
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     cursor: pointer;
     color: ${creme};
     background-color: ${bronze};
@@ -165,7 +165,7 @@ var Table = styled.div`
   display: flex;
   flex-direction: column;
   color: ${bronze};
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
 `
 
 var Wrapper = styled.div`
@@ -183,20 +183,30 @@ const Project = () => (
     <Title>Последний</Title>
     <Table>
       <Row>
-        <IndexCell></IndexCell>
+        <IndexCell />
         <HeadingCell bgColor="#ff8a80">Названия</HeadingCell>
         <HeadingCell bgColor="#a7ffeb">Характеристики</HeadingCell>
         <HeadingCell bgColor="#ccff90">Возраст</HeadingCell>
         <HeadingCell bgColor="#ffd180">
           Инвентарь
           <CellMenu>
-            <CellMenuItem bgColor="#ffd180"><FontAwesomeIcon icon={trash} /></CellMenuItem>
-            <CellMenuItem bgColor="#ffd180"><FontAwesomeIcon icon={pencil} /></CellMenuItem>
+            <CellMenuItem bgColor="#ffd180">
+              <FontAwesomeIcon icon={trash} />
+            </CellMenuItem>
+            <CellMenuItem bgColor="#ffd180">
+              <FontAwesomeIcon icon={pencil} />
+            </CellMenuItem>
           </CellMenu>
           <ControlsGroup>
-            <Control><FontAwesomeIcon icon={plus} /></Control>
-            <Control><FontAwesomeIcon icon={save} /></Control>
-            <Control><FontAwesomeIcon icon={print} /></Control>
+            <Control>
+              <FontAwesomeIcon icon={plus} />
+            </Control>
+            <Control>
+              <FontAwesomeIcon icon={save} />
+            </Control>
+            <Control>
+              <FontAwesomeIcon icon={print} />
+            </Control>
           </ControlsGroup>
         </HeadingCell>
       </Row>
@@ -204,8 +214,9 @@ const Project = () => (
         <IndexCell>1</IndexCell>
         <Cell>Футбол</Cell>
         <Cell>
-          <MultilineOverflow> в помещении, дождь, развитие на улице,
-            группа, без инвентаря и многое другое
+          <MultilineOverflow>
+            {" "}
+            в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
           </MultilineOverflow>
         </Cell>
         <Cell>12 - 14 лет</Cell>
@@ -216,8 +227,7 @@ const Project = () => (
         <Cell>Футбол</Cell>
         <Cell>
           <MultilineOverflow>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+            в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
           </MultilineOverflow>
         </Cell>
         <Cell>12 - 14 лет</Cell>
@@ -228,12 +238,13 @@ const Project = () => (
         <Cell>Футбол</Cell>
         <Cell>
           <MultilineOverflow>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+            в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
           </MultilineOverflow>
         </Cell>
         <Cell>12 - 14 лет</Cell>
-        <Cell><CellAction>Выбрать</CellAction></Cell>
+        <Cell>
+          <CellAction>Выбрать</CellAction>
+        </Cell>
       </Row>
     </Table>
   </Wrapper>

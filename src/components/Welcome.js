@@ -1,12 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import {Link} from 'react-router-dom'
-import {
-  creme,
-  bloody,
-  gold,
-  goldLight
-} from '../constants/colors'
+import React from "react"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
+import { creme, bloody, gold, goldLight } from "../constants/colors"
 
 const Wrapper = styled.div`
   background-color: ${creme};
@@ -42,26 +37,26 @@ const Action = styled(Link)`
   height: 125px;
   font-size: 27px;
   line-height: 1.43;
-  font-family: 'BloggerSansLight', sans-serif;
+  font-family: "BloggerSansLight", sans-serif;
   background-color: ${gold};
   color: ${bloody};
   text-transform: uppercase;
   border-radius: 4px;
-  transition: .3s ease;
+  transition: 0.3s ease;
 
   &:hover {
     background-color: ${goldLight};
   }
 `
 const Title = styled.h1`
-  font-family: 'Neucha', cursive;
+  font-family: "Neucha", cursive;
   text-align: center;
   font-size: 68px;
   flex-shrink: 2;
 `
 const Description = styled.p`
   font-size: 22px;
-  font-family: 'MyriadPro', sans-serif;
+  font-family: "MyriadPro", sans-serif;
   text-align: center;
 `
 
@@ -75,10 +70,9 @@ const Welcome = () => (
         <Action to="/projects">Начать Работу</Action>
       </ActionsWrapper>
       <Description>
-          С.У.П. - Система Управления Программой лагеря, созданная,
-          чтобы помочь координаторам на этапе планирования заезда.
-          С.У.П. содержит постоянно пополняемую базу данных с играми,
-          сценками, песнями и ещё многим другим.
+        С.У.П. - Система Управления Программой лагеря, созданная, чтобы помочь координаторам на
+        этапе планирования заезда. С.У.П. содержит постоянно пополняемую базу данных с играми,
+        сценками, песнями и ещё многим другим.
       </Description>
     </Content>
   </Wrapper>

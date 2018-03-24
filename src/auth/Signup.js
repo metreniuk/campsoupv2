@@ -1,10 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import {
-  creme,
-  darkBlue,
-  skyBlue
-} from '../constants/colors'
+import React from "react"
+import styled from "styled-components"
+import { creme, darkBlue, skyBlue } from "../constants/colors"
 
 const Wrapper = styled.div`
   background-color: ${skyBlue};
@@ -23,7 +19,7 @@ const Content = styled.div`
 `
 
 const Title = styled.h1`
-  font-family: 'Neucha', cursive;
+  font-family: "Neucha", cursive;
   text-align: center;
   font-size: 68px;
 `
@@ -37,7 +33,7 @@ const SubContent = styled.div`
 `
 
 const SubTitle = styled.h3`
-  font-family: 'BloggerSansLight', sans-serif;
+  font-family: "BloggerSansLight", sans-serif;
   font-size: 22px;
 `
 
@@ -59,7 +55,7 @@ const TextField = styled.input`
   width: 100%;
   text-align: center;
   padding: 10px;
-  font-family: 'BloggerSansLight', sans-serif;
+  font-family: "BloggerSansLight", sans-serif;
   font-size: 22px;
   /*add dirty color*/
   background-color: #9ec4ee;

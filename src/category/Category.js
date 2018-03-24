@@ -1,15 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import {
-  bronze,
-  creme
-} from '../constants/colors'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import starSolid from '@fortawesome/fontawesome-free-solid/faStar'
-import starRegular from '@fortawesome/fontawesome-free-regular/faStar'
+import React from "react"
+import styled from "styled-components"
+import { bronze, creme } from "../constants/colors"
+import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import starSolid from "@fortawesome/fontawesome-free-solid/faStar"
+import starRegular from "@fortawesome/fontawesome-free-regular/faStar"
 
 var Title = styled.h1`
-  font-family: 'Neucha', cursive;
+  font-family: "Neucha", cursive;
   font-size: 68px;
   color: ${bronze};
 `
@@ -18,7 +15,7 @@ var Table = styled.div`
   display: flex;
   flex-direction: column;
   color: ${bronze};
-  font-family: 'BloggerSansMedium', sans-serif;
+  font-family: "BloggerSansMedium", sans-serif;
 `
 
 var Row = styled.div`
@@ -36,11 +33,14 @@ var Cell = styled.div`
   height: 36px;
   border-right: 1px solid ${bronze};
 
-  &:first-child, &:nth-child(2), &:last-child {
+  &:first-child,
+  &:nth-child(2),
+  &:last-child {
     border-right: none;
   }
 
-  &:first-child, &:nth-child(2) {
+  &:first-child,
+  &:nth-child(2) {
     width: 30px;
     padding: 0;
     justify-content: center;
@@ -83,8 +83,10 @@ var Category = () => (
     <Title>Игры</Title>
     <Table>
       <Row>
-        <HeadingCell></HeadingCell>
-        <HeadingCell><FontAwesomeIcon icon={starSolid} /></HeadingCell>
+        <HeadingCell />
+        <HeadingCell>
+          <FontAwesomeIcon icon={starSolid} />
+        </HeadingCell>
         <HeadingCell>Названия</HeadingCell>
         <HeadingCell>Характеристики</HeadingCell>
         <HeadingCell>Возраст</HeadingCell>
@@ -92,44 +94,48 @@ var Category = () => (
       </Row>
       <Row>
         <Cell>1</Cell>
-        <Cell><FontAwesomeIcon icon={starRegular} /></Cell>
+        <Cell>
+          <FontAwesomeIcon icon={starRegular} />
+        </Cell>
         <Cell>Футбол</Cell>
         <VerboseCell>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+          в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
         </VerboseCell>
         <Cell>12 - 14 лет</Cell>
         <Cell>мяч</Cell>
       </Row>
       <Row>
         <Cell>1</Cell>
-        <Cell><FontAwesomeIcon icon={starRegular} /></Cell>
+        <Cell>
+          <FontAwesomeIcon icon={starRegular} />
+        </Cell>
         <Cell>Футбол</Cell>
         <VerboseCell>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+          в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
         </VerboseCell>
         <Cell>12 - 14 лет</Cell>
         <Cell>мяч</Cell>
       </Row>
       <Row>
         <Cell>1</Cell>
-        <Cell><FontAwesomeIcon icon={starRegular} /></Cell>
+        <Cell>
+          <FontAwesomeIcon icon={starRegular} />
+        </Cell>
         <Cell>Футбол</Cell>
         <VerboseCell>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+          в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
         </VerboseCell>
         <Cell>12 - 14 лет</Cell>
         <Cell>мяч</Cell>
       </Row>
       <Row>
         <Cell>1</Cell>
-        <Cell><FontAwesomeIcon icon={starRegular} /></Cell>
+        <Cell>
+          <FontAwesomeIcon icon={starRegular} />
+        </Cell>
         <Cell>Футбол</Cell>
         <VerboseCell>
-          в помещении, дождь, развитие на улице,
-          группа, без инвентаря и многое другое
+          в помещении, дождь, развитие на улице, группа, без инвентаря и многое другое
         </VerboseCell>
         <Cell>12 - 14 лет</Cell>
         <Cell>мяч</Cell>

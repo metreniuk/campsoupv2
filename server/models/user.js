@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+const mongoose = require("mongoose")
+const bcrypt = require("bcryptjs")
 
 const userSchema = mongoose.Schema({
   email: {
@@ -14,10 +14,11 @@ const userSchema = mongoose.Schema({
   },
 })
 
-userSchema.pre('save', function presave(next) {
-  bcrypt.genSalt()
+userSchema.pre("save", function presave(next) {
+  bcrypt
+    .genSalt()
     .then(salt => bcrypt.hash(this.password, salt))
-    .then((hash) => {
+    .then(hash => {
       this.password = hash
     })
     .then(next)
@@ -28,7 +29,7 @@ userSchema.methods.checkPassword = function check(passwordToCheck) {
   return bcrypt.compare(passwordToCheck, this.password)
 }
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model("User", userSchema)
 
 module.exports = {
   User,
