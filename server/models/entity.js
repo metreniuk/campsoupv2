@@ -10,7 +10,7 @@ const EntitySchema = mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ["sport", "event", "scene", "lesson", "song", "fellowship"],
+      enum: ["sport", "events", "scenes", "lessons", "songs", "fellowship"],
     },
     duration: Number,
     space: {

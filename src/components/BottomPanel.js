@@ -1,12 +1,16 @@
+// @flow
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
 import chevronDown from "@fortawesome/fontawesome-free-solid/faChevronCircleDown"
+import chevronUp from "@fortawesome/fontawesome-free-solid/faChevronCircleUp"
 import starSolid from "@fortawesome/fontawesome-free-solid/faStar"
 import cloudSolid from "@fortawesome/fontawesome-free-solid/faCloud"
 import starRegular from "@fortawesome/fontawesome-free-regular/faStar"
 import { amber, canary } from "../constants/colors"
+import CategoryNavList from "../components/CategoryNavList"
+import type { FilterType, CategoryType } from "../types"
 
 const Header = styled.header`
   background-color: ${amber};
@@ -106,83 +110,106 @@ const TilesSection = styled.section`
     margin: 0 10px 10px 0;
   }
 `
-
+const innerHeight = "238px"
 const Wrapper = styled.div`
   font-family: "BloggerSansMedium", sans-serif;
   font-size: 16px;
   width: 100%;
+  position: relative;
+  top: ${props => (props.isOpen ? "0" : innerHeight)};
+  transition: top 0.3s;
 
   ${Filters} {
     padding: 10px 20px;
   }
 `
 
-const BottomPanel = () => (
-  <Wrapper>
+type DisplayType = CategoryType | "all"
+type Props = {
+  isOpen: boolean,
+  filter: FilterType,
+  displayType: DisplayType,
+  toggleOpen: () => void,
+  setFilter: (filter: FilterType) => void,
+  setDisplayType: (type: DisplayType) => void,
+}
+
+type TileType = {
+  link: string,
+  title: string,
+  type: CategoryType,
+  isFavorite: boolean,
+}
+
+const tiles: Array<TileType> = [
+  {
+    link: "/",
+    title: "faf",
+    type: "sport",
+    isFavorite: false,
+  },
+  {
+    link: "/",
+    title: "amam",
+    type: "events",
+    isFavorite: true,
+  },
+]
+
+const BottomPanel = ({
+  isOpen,
+  displayType,
+  toggleOpen,
+  setFilter,
+  setDisplayType,
+}: Props) => (
+  <Wrapper isOpen={isOpen}>
     <Header>
-      <ExpandButton>
-        <FontAwesomeIcon icon={chevronDown} />
+      <ExpandButton onClick={toggleOpen}>
+        {isOpen ? (
+          <FontAwesomeIcon icon={chevronDown} />
+        ) : (
+          <FontAwesomeIcon icon={chevronUp} />
+        )}
       </ExpandButton>
-      <HeaderItem to="/events">События</HeaderItem>
-      <HeaderItem to="/sport">Спорт</HeaderItem>
+      <CategoryNavList>
+        {links =>
+          links.map(({ id, name, link }) => (
+            <HeaderItem key={id} to={link} onClick={() => setDisplayType(id)}>
+              {name}
+            </HeaderItem>
+          ))
+        }
+      </CategoryNavList>
     </Header>
     <Filters>
       <FiltersHeading>Фильтр:</FiltersHeading>
-      <FilterItem>
+      <FilterItem onClick={() => setFilter("favorite")}>
         <FontAwesomeIcon icon={starSolid} />
       </FilterItem>
-      <FilterItem>
+      <FilterItem onClick={() => setFilter("weather")}>
         <FontAwesomeIcon icon={cloudSolid} />
       </FilterItem>
-      <FilterItem>Характеристики</FilterItem>
-      <FilterItem>Возраст</FilterItem>
+      <FilterItem onClick={() => setFilter("tags")}>Характеристики</FilterItem>
+      <FilterItem onClick={() => setFilter("age")}>Возраст</FilterItem>
     </Filters>
     <Separator />
     <TilesSection>
-      <Tile to="/">
-        Игра Тратата
-        <TileStar>
-          <FontAwesomeIcon icon={starSolid} />
-        </TileStar>
-      </Tile>
-      <Tile to="/">
-        Игра Тратата
-        <TileStar>
-          <FontAwesomeIcon icon={starRegular} />
-        </TileStar>
-      </Tile>
-      <Tile to="/">
-        Игра Тратата
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра Тратата
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра Тратата
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра с длинным названием
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра с длинным названием
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра с длинным названием
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра с длинным названием
-        <TileStar />
-      </Tile>
-      <Tile to="/">
-        Игра с длинным названием
-        <TileStar />
-      </Tile>
+      {tiles.map(
+        ({ title, link, isFavorite, type }: TileType) =>
+          (displayType === "all" || type === displayType) && (
+            <Tile key={title} to={link}>
+              {title}
+              <TileStar>
+                {isFavorite ? (
+                  <FontAwesomeIcon icon={starSolid} />
+                ) : (
+                  <FontAwesomeIcon icon={starRegular} />
+                )}
+              </TileStar>
+            </Tile>
+          )
+      )}
     </TilesSection>
   </Wrapper>
 )

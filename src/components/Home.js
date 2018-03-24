@@ -1,9 +1,10 @@
+// @flow
 import React from "react"
 import { Route, Switch } from "react-router-dom"
 import styled from "styled-components"
 
 import Sidebar from "./Sidebar"
-import BottomPanel from "./BottomPanel"
+import BottomPanelContainer from "../containers/BottomPanelContainer"
 import HomeNav from "./HomeNav"
 import Projects from "../projects/Projects"
 import Category from "../category/Category"
@@ -29,7 +30,13 @@ const Wrapper = styled.div`
   display: flex;
 `
 
-const Home = ({ match }) => (
+type Props = {
+  match: {
+    path: string,
+  },
+}
+
+const Home = ({ match }: Props) => (
   <Wrapper>
     <SidebarWrapper>
       <Sidebar />
@@ -41,7 +48,7 @@ const Home = ({ match }) => (
         <Route path={`${match.path}:categoryId`} component={Category} />
       </Switch>
       <BottomPanelWrapper>
-        <BottomPanel />
+        <BottomPanelContainer />
       </BottomPanelWrapper>
     </Body>
   </Wrapper>
