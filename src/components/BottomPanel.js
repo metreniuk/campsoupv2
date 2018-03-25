@@ -32,11 +32,12 @@ const ExpandButton = styled.div`
   }
 `
 
-const HeaderItem = styled(Link)`
+const HeaderItem = styled.button`
   padding: 8px 10px;
   border-left: 1px solid ${canary};
   text-transform: uppercase;
   color: ${canary};
+  background-color: ${amber};
 
   &:hover {
     background-color: ${canary};
@@ -131,7 +132,7 @@ type Props = {
   displayType: DisplayType,
   toggleOpen: () => void,
   setFilter: (filter: FilterType) => void,
-  setDisplayType: (type: DisplayType) => void,
+  handleHeaderItemClick: (type: DisplayType) => void,
 }
 
 type TileType = {
@@ -161,7 +162,7 @@ const BottomPanel = ({
   displayType,
   toggleOpen,
   setFilter,
-  setDisplayType,
+  handleHeaderItemClick,
 }: Props) => (
   <Wrapper isOpen={isOpen}>
     <Header>
@@ -173,13 +174,16 @@ const BottomPanel = ({
         )}
       </ExpandButton>
       <CategoryNavList>
-        {links =>
-          links.map(({ id, name, link }) => (
-            <HeaderItem key={id} to={link} onClick={() => setDisplayType(id)}>
+        {links => [
+          <HeaderItem key="all" onClick={() => handleHeaderItemClick("all")}>
+            Все
+          </HeaderItem>,
+          ...links.map(({ id, name }) => (
+            <HeaderItem key={id} onClick={() => handleHeaderItemClick(id)}>
               {name}
             </HeaderItem>
-          ))
-        }
+          )),
+        ]}
       </CategoryNavList>
     </Header>
     <Filters>

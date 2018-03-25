@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom"
 import styled from "styled-components"
 
 import Sidebar from "./Sidebar"
-import BottomPanelContainer from "../containers/BottomPanelContainer"
+import BottomPanelContainer from "../category/BottomPanelContainer"
 import HomeNav from "./HomeNav"
 import Projects from "../projects/Projects"
 import Category from "../category/Category"

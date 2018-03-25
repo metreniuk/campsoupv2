@@ -9,7 +9,8 @@
   },
   "rules": {
     "no-unused-vars": "warn",
-    "eol-last": "error"
+    "eol-last": "error",
+    "react/display-name": "off"
   },
   "settings": {
     "flowtype": {

@@ -30,6 +30,15 @@ const EntitySchema = mongoose.Schema(
   { timestamps: true }
 )
 
+EntitySchema.set("toJSON", {
+  virtuals: true,
+  transform: (doc, entity) => {
+    delete entity._id
+    delete entity.__v
+    return entity
+  },
+})
+
 const Entity = mongoose.model("Entity", EntitySchema)
 
 module.exports = {

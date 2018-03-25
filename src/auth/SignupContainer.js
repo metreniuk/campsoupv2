@@ -25,7 +25,6 @@ const handleSubmit = ({
   setPassword,
   history,
 }) => () => {
-  console.log(email, password)
   fetch("http://localhost:3030/auth/signup", {
     body: JSON.stringify({ email, password }),
     method: "POST",
