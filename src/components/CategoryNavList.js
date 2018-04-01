@@ -5,7 +5,7 @@ import navItems from "../constants/navigation"
 const CategoryNavList = props => {
   const navLinks = navItems.map(({ en, rus }) => ({
     id: en,
-    name: rus,
+    name: en,
     link: `/${en}`,
   }))
 

@@ -4,11 +4,15 @@ import { bronze, creme } from "../constants/colors"
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
 import starSolid from "@fortawesome/fontawesome-free-solid/faStar"
 import starRegular from "@fortawesome/fontawesome-free-regular/faStar"
+import plusSolid from "@fortawesome/fontawesome-free-solid/faPlus"
+import type { CategoryType } from "../types"
+import AddItemModalContainer from "./AddItemModalContainer"
 
 var Title = styled.h1`
   font-family: "Neucha", cursive;
   font-size: 68px;
   color: ${bronze};
+  text-transform: capitalize;
 `
 
 var Table = styled.div`
@@ -68,6 +72,18 @@ var VerboseCell = styled(Cell)`
   text-overflow: ellipsis;
 `
 
+var AddButton = styled.div`
+  padding: 2px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 var Wrapper = styled.div`
   height: 100vh;
   background-color: ${creme};
@@ -78,71 +94,52 @@ var Wrapper = styled.div`
   }
 `
 
-var Category = () => (
+type CategoryItem = {
+  title: string,
+  type: CategoryType,
+  description: string,
+  age: string,
+  inventory: Array<string>,
+}
+
+type Props = {
+  categoryId: CategoryType,
+  entities: Array<CategoryItem>,
+}
+
+var Category = ({ entities, categoryId }: Props) => (
   <Wrapper>
-    <Title>Игры</Title>
+    <Title>{categoryId}</Title>
     <Table>
       <Row>
         <HeadingCell />
         <HeadingCell>
           <FontAwesomeIcon icon={starSolid} />
         </HeadingCell>
-        <HeadingCell>Названия</HeadingCell>
-        <HeadingCell>Характеристики</HeadingCell>
-        <HeadingCell>Возраст</HeadingCell>
-        <HeadingCell>Инвентарь</HeadingCell>
+        <HeadingCell>Title</HeadingCell>
+        <HeadingCell>Description</HeadingCell>
+        <HeadingCell>Age</HeadingCell>
+        <HeadingCell>Inventory</HeadingCell>
       </Row>
+      {entities.map(({ title, description, age }, index) => (
+        <Row key={title}>
+          <Cell>{index + 1}</Cell>
+          <Cell>
+            <FontAwesomeIcon icon={starRegular} />
+          </Cell>
+          <Cell>{title}</Cell>
+          <VerboseCell>{description}</VerboseCell>
+          <Cell>{age}</Cell>
+          <Cell>{}</Cell>
+        </Row>
+      ))}
       <Row>
-        <Cell>1</Cell>
         <Cell>
-          <FontAwesomeIcon icon={starRegular} />
+          <AddButton>
+            <FontAwesomeIcon icon={plusSolid} />
+          </AddButton>
+          <AddItemModalContainer />
         </Cell>
-        <Cell>Футбол</Cell>
-        <VerboseCell>
-          в помещении, дождь, развитие на улице, группа, без инвентаря и многое
-          другое
-        </VerboseCell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
-      </Row>
-      <Row>
-        <Cell>1</Cell>
-        <Cell>
-          <FontAwesomeIcon icon={starRegular} />
-        </Cell>
-        <Cell>Футбол</Cell>
-        <VerboseCell>
-          в помещении, дождь, развитие на улице, группа, без инвентаря и многое
-          другое
-        </VerboseCell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
-      </Row>
-      <Row>
-        <Cell>1</Cell>
-        <Cell>
-          <FontAwesomeIcon icon={starRegular} />
-        </Cell>
-        <Cell>Футбол</Cell>
-        <VerboseCell>
-          в помещении, дождь, развитие на улице, группа, без инвентаря и многое
-          другое
-        </VerboseCell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
-      </Row>
-      <Row>
-        <Cell>1</Cell>
-        <Cell>
-          <FontAwesomeIcon icon={starRegular} />
-        </Cell>
-        <Cell>Футбол</Cell>
-        <VerboseCell>
-          в помещении, дождь, развитие на улице, группа, без инвентаря и многое
-          другое
-        </VerboseCell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
       </Row>
     </Table>
   </Wrapper>

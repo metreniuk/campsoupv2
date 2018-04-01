@@ -13,6 +13,7 @@ import CategoryNavList from "../components/CategoryNavList"
 import type { FilterType, CategoryType } from "../types"
 
 const Header = styled.header`
+  position: relative;
   background-color: ${amber};
   color: ${canary};
   display: flex;
@@ -20,7 +21,7 @@ const Header = styled.header`
   height: 30px;
 `
 
-const ExpandButton = styled.div`
+const HeaderButton = styled.div`
   padding: 2px 20px;
   display: flex;
   justify-content: center;
@@ -130,6 +131,7 @@ type Props = {
   isOpen: boolean,
   filter: FilterType,
   displayType: DisplayType,
+  tiles: Array<TileType>,
   toggleOpen: () => void,
   setFilter: (filter: FilterType) => void,
   handleHeaderItemClick: (type: DisplayType) => void,
@@ -142,41 +144,27 @@ type TileType = {
   isFavorite: boolean,
 }
 
-const tiles: Array<TileType> = [
-  {
-    link: "/",
-    title: "faf",
-    type: "sport",
-    isFavorite: false,
-  },
-  {
-    link: "/",
-    title: "amam",
-    type: "events",
-    isFavorite: true,
-  },
-]
-
 const BottomPanel = ({
   isOpen,
   displayType,
   toggleOpen,
   setFilter,
+  tiles,
   handleHeaderItemClick,
 }: Props) => (
   <Wrapper isOpen={isOpen}>
     <Header>
-      <ExpandButton onClick={toggleOpen}>
+      <HeaderButton onClick={toggleOpen}>
         {isOpen ? (
           <FontAwesomeIcon icon={chevronDown} />
         ) : (
           <FontAwesomeIcon icon={chevronUp} />
         )}
-      </ExpandButton>
+      </HeaderButton>
       <CategoryNavList>
         {links => [
           <HeaderItem key="all" onClick={() => handleHeaderItemClick("all")}>
-            Все
+            All
           </HeaderItem>,
           ...links.map(({ id, name }) => (
             <HeaderItem key={id} onClick={() => handleHeaderItemClick(id)}>
@@ -187,22 +175,22 @@ const BottomPanel = ({
       </CategoryNavList>
     </Header>
     <Filters>
-      <FiltersHeading>Фильтр:</FiltersHeading>
+      <FiltersHeading>Filter:</FiltersHeading>
       <FilterItem onClick={() => setFilter("favorite")}>
         <FontAwesomeIcon icon={starSolid} />
       </FilterItem>
       <FilterItem onClick={() => setFilter("weather")}>
         <FontAwesomeIcon icon={cloudSolid} />
       </FilterItem>
-      <FilterItem onClick={() => setFilter("tags")}>Характеристики</FilterItem>
-      <FilterItem onClick={() => setFilter("age")}>Возраст</FilterItem>
+      <FilterItem onClick={() => setFilter("tags")}>Tags</FilterItem>
+      <FilterItem onClick={() => setFilter("age")}>Age</FilterItem>
     </Filters>
     <Separator />
     <TilesSection>
       {tiles.map(
-        ({ title, link, isFavorite, type }: TileType) =>
+        ({ title, isFavorite = false, type }: TileType) =>
           (displayType === "all" || type === displayType) && (
-            <Tile key={title} to={link}>
+            <Tile key={title} to={`/${type}`}>
               {title}
               <TileStar>
                 {isFavorite ? (

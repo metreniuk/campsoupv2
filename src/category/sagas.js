@@ -1,11 +1,19 @@
 import { call, put, takeEvery } from "redux-saga/effects"
-import { fetchCategorySuccess, fetchCategoryError } from "./actions"
+import * as actions from "./actions"
 
 const Api = {
-  fetchCategory: type =>
+  fetchCategory: (type = "all") =>
     fetch(`http://localhost:3030/entity/${type !== "all" ? type : ""}`).then(
       res => res.json()
     ),
+  postCategoryItem: item =>
+    fetch("http://localhost:3030/entity", {
+      body: JSON.stringify({ item }),
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+      },
+    }),
 }
 
 function* fetchCategory(action) {
@@ -13,14 +21,24 @@ function* fetchCategory(action) {
     const response = yield call(Api.fetchCategory, action.payload.type)
     const { items } = response
 
-    yield put(fetchCategorySuccess(items))
+    yield put(actions.fetchCategorySuccess(items))
   } catch (e) {
-    yield put(fetchCategoryError(e.message))
+    yield put(actions.fetchCategoryError(e.message))
   }
+}
+
+function* postCategoryItem(action) {
+  try {
+    const { payload: { item } } = action
+    const response = yield call(Api.postCategoryItem, item)
+    console.log(response)
+    yield put(actions.fetchCategory(item.type))
+  } catch (e) {}
 }
 
 function* category() {
   yield takeEvery("FETCH_CATEGORY", fetchCategory)
+  yield takeEvery("POST_CATEGORY_ITEM", postCategoryItem)
 }
 
 export default category

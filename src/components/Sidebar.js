@@ -66,14 +66,14 @@ const Sidebar = () => (
       <img src="/assets/images/soup_logo.png" alt="Logo" />
     </LogoLink>
     <Menu>
-      <MenuHeading>Проекты</MenuHeading>
+      <MenuHeading>Projects</MenuHeading>
       <Link to="/projects">
-        <MenuItem>Последний</MenuItem>
+        <MenuItem>Last</MenuItem>
       </Link>
     </Menu>
     <Line />
     <Menu>
-      <MenuHeading>База Данных</MenuHeading>
+      <MenuHeading>Archive</MenuHeading>
       <CategoryNavList>
         {navLinks =>
           navLinks.map(({ name, link }) => (

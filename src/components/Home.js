@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar"
 import BottomPanelContainer from "../category/BottomPanelContainer"
 import HomeNav from "./HomeNav"
 import Projects from "../projects/Projects"
-import Category from "../category/Category"
+import CategoryContainer from "../category/CategoryContainer"
 
 const Body = styled.div`
   position: relative;
@@ -45,7 +45,10 @@ const Home = ({ match }: Props) => (
       <Switch>
         <Route path={match.path} exact component={HomeNav} />
         <Route path={`${match.path}projects`} component={Projects} />
-        <Route path={`${match.path}:categoryId`} component={Category} />
+        <Route
+          path={`${match.path}:categoryId`}
+          component={CategoryContainer}
+        />
       </Switch>
       <BottomPanelWrapper>
         <BottomPanelContainer />

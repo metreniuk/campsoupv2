@@ -5,6 +5,7 @@ import BottomPanel from "../components/BottomPanel"
 import type { FilterType, CategoryType } from "../types"
 // import { withFetch } from "../components/Fetch"
 import { fetchCategory } from "./actions"
+import { getCategoryItems } from "./reducer"
 
 type Props = {
   isOpen: boolean,
@@ -35,7 +36,7 @@ function componentDidMount() {
 //TODO move all logic away from bottom panel to normalized redux + local state filter
 
 const BottomPanelContainer = compose(
-  connect(),
+  connect(state => ({ tiles: getCategoryItems(state.category) })),
   withState("isOpen", "setOpen", true),
   withState("filter", "setFilter", ""),
   withState("displayType", "setDisplayType", "all"),
