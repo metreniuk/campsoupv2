@@ -24,7 +24,7 @@ const EntitySchema = mongoose.Schema(
         message: "{VALUE} is not a valid age!",
       },
     },
-    tags: [{ title: String }],
+    tags: [String],
     images: [{ src: String }],
   },
   { timestamps: true }

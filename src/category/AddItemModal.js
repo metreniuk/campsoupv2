@@ -74,15 +74,18 @@ var Wrapper = styled.div`
 
 const AddItemModal = ({
   title,
+  type,
   description,
   age,
   tags,
   setTitle,
+  setType,
   setDescription,
   setAge,
   setTags,
   handleClose,
   handleSubmit,
+  isLoading,
 }) => (
   <Modal>
     <Wrapper>
@@ -93,13 +96,17 @@ const AddItemModal = ({
         <Heading>Add an item</Heading>
         <Label>Title:</Label>
         <TextField type="text" value={title} onChange={setTitle} />
+        <Label>Type:</Label>
+        <TextField type="text" value={type} onChange={setType} />
         <Label>Description:</Label>
         <TextField type="text" value={description} onChange={setDescription} />
         <Label>Age:</Label>
         <TextField type="text" value={age} onChange={setAge} />
         <Label>Tags:</Label>
         <TextField type="text" value={tags} onChange={setTags} />
-        <Action onClick={handleSubmit}>Add</Action>
+        <Action disabled={isLoading} onClick={handleSubmit}>
+          Add
+        </Action>
       </Content>
     </Wrapper>
   </Modal>

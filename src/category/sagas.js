@@ -13,6 +13,11 @@ const Api = {
       headers: {
         "content-Type": "application/json",
       },
+    }).then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      throw new Error(res.json())
     }),
 }
 
@@ -31,9 +36,12 @@ function* postCategoryItem(action) {
   try {
     const { payload: { item } } = action
     const response = yield call(Api.postCategoryItem, item)
-    console.log(response)
+    console.log("SUCCESS", response)
+    yield put(actions.postCategoryItemEnd())
     yield put(actions.fetchCategory(item.type))
-  } catch (e) {}
+  } catch (e) {
+    yield put(actions.postCategoryItemEnd(e))
+  }
 }
 
 function* category() {

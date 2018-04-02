@@ -105,9 +105,10 @@ type CategoryItem = {
 type Props = {
   categoryId: CategoryType,
   entities: Array<CategoryItem>,
+  handleAddClick: () => void,
 }
 
-var Category = ({ entities, categoryId }: Props) => (
+var Category = ({ entities, categoryId, handleAddClick }: Props) => (
   <Wrapper>
     <Title>{categoryId}</Title>
     <Table>
@@ -135,7 +136,7 @@ var Category = ({ entities, categoryId }: Props) => (
       ))}
       <Row>
         <Cell>
-          <AddButton>
+          <AddButton onClick={handleAddClick}>
             <FontAwesomeIcon icon={plusSolid} />
           </AddButton>
           <AddItemModalContainer />

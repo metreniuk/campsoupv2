@@ -2,6 +2,27 @@ import { handleActions } from "redux-actions"
 import { combineReducers } from "redux"
 import { createSelector } from "reselect"
 
+const isModalOpen = handleActions(
+  {
+    OPEN_CATEGORY_MODAL: () => true,
+    CLOSE_CATEGORY_MODAL: () => false,
+  },
+  false
+)
+
+const isLoading = handleActions(
+  { POST_CATEGORY_ITEM: () => true, POST_CATEGORY_ITEM_END: () => false },
+  false
+)
+
+const hasError = handleActions(
+  {
+    POST_CATEGORY_ITEM: () => false,
+    POST_CATEGORY_ITEM_END: (_, action) => !!action.error,
+  },
+  false
+)
+
 const toById = (collection, initialValue = {}) =>
   collection.reduce(
     (byId, item) => ({ ...byId, [item.id]: item }),
@@ -41,7 +62,13 @@ const getCategoryItemsByType = createSelector(
     allIds.map(id => byId[id]).filter(item => item.type === categoryId)
 )
 
-const category = combineReducers({ byId, allIds })
+const category = combineReducers({
+  byId,
+  allIds,
+  isModalOpen,
+  isLoading,
+  hasError,
+})
 
 export { getCategoryItems, getCategoryItemsByType }
 
