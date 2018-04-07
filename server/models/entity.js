@@ -32,10 +32,10 @@ const EntitySchema = mongoose.Schema(
 
 EntitySchema.set("toJSON", {
   virtuals: true,
-  transform: (doc, entity) => {
-    delete entity._id
-    delete entity.__v
-    return entity
+  transform: (doc, item) => {
+    delete item._id
+    delete item.__v
+    return item
   },
 })
 

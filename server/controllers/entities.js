@@ -37,15 +37,17 @@ router
   })
   .post(postEntity)
 
-router.route("/:entityType").get((req, res) => {
-  const { entityType } = req.params
+router
+  .route("/:entityType")
+  .get((req, res) => {
+    const { entityType } = req.params
 
-  return Entity.find({ type: entityType })
-    .then(items => res.status(200).json({ items }))
-    .catch(err => res.status(404).json(err))
-})
+    return Entity.find({ type: entityType })
+      .then(items => res.status(200).json({ items }))
+      .catch(err => res.status(404).json(err))
+  })
+  .post(postEntity)
 // .post(requireAuth, (req, res) => {
-// .post(postEntity)
 
 router
   .route("/:entityType/:entityId")
@@ -91,5 +93,5 @@ router
   })
 
 module.exports = {
-  EntityController: router,
+  EntitiesController: router,
 }

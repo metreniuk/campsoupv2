@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 
-const userSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -14,7 +14,16 @@ const userSchema = mongoose.Schema({
   },
 })
 
-userSchema.pre("save", function presave(next) {
+UserSchema.set("toJSON", {
+  virtuals: true,
+  transform: (doc, item) => {
+    delete item._id
+    delete item.__v
+    return item
+  },
+})
+
+UserSchema.pre("save", function presave(next) {
   bcrypt
     .genSalt()
     .then(salt => bcrypt.hash(this.password, salt))
@@ -25,11 +34,11 @@ userSchema.pre("save", function presave(next) {
     .catch(next)
 })
 
-userSchema.methods.checkPassword = function check(passwordToCheck) {
+UserSchema.methods.checkPassword = function check(passwordToCheck) {
   return bcrypt.compare(passwordToCheck, this.password)
 }
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", UserSchema)
 
 module.exports = {
   User,
