@@ -7,6 +7,7 @@ import {
   renderNothing,
   lifecycle,
 } from "recompose"
+import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 
 import AddItemModal from "./AddItemModal"
@@ -36,6 +37,7 @@ function handleClose({ dispatch }) {
 const makeSetter = key => () => event => ({ [key]: event.target.value })
 
 const AddItemModalContainer = compose(
+  withRouter,
   connect(state => ({
     isOpen: state.category.isModalOpen,
     isLoading: state.category.isLoading,
@@ -43,13 +45,13 @@ const AddItemModalContainer = compose(
   })),
   branch(props => !props.isOpen, renderNothing),
   withStateHandlers(
-    {
+    ({ match: { params: { categoryId } } }) => ({
       title: "",
-      type: "",
+      type: categoryId,
       description: "",
       age: "",
       tags: "",
-    },
+    }),
     {
       setTitle: makeSetter("title"),
       setType: makeSetter("type"),

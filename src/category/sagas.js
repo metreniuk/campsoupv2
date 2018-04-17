@@ -3,11 +3,11 @@ import * as actions from "./actions"
 
 const Api = {
   fetchCategory: (type = "all") =>
-    fetch(`http://localhost:3030/entity/${type !== "all" ? type : ""}`).then(
+    fetch(`http://localhost:3030/entities/${type !== "all" ? type : ""}`).then(
       res => res.json()
     ),
   postCategoryItem: item =>
-    fetch("http://localhost:3030/entity", {
+    fetch("http://localhost:3030/entities", {
       body: JSON.stringify({ item }),
       method: "POST",
       headers: {

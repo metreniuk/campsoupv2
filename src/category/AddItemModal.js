@@ -5,6 +5,9 @@ import Modal from "../components/Modal"
 import { bronze, creme } from "../constants/colors"
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
 import timesSolid from "@fortawesome/fontawesome-free-solid/faTimes"
+import { categories } from "../types"
+
+const ages = ["0-5", "6-10", "11-15", "16-20"]
 
 var Heading = styled.h2`
   font-size: 22px;
@@ -29,6 +32,31 @@ var TextField = styled.input`
   &::placeholder {
     color: ${creme};
   }
+`
+
+var TextArea = styled.textarea`
+  width: 100%;
+  padding: 5px;
+  font-family: "BloggerSansLight", sans-serif;
+  font-size: 18px;
+  /*add dirty color*/
+  background-color: ${creme};
+  color: ${bronze};
+  border: 1px solid ${bronze};
+
+  resize: none;
+  height: 150px;
+`
+
+var Select = styled.select`
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  font-family: "BloggerSansLight", sans-serif;
+  font-size: 16px;
+  background-color: ${creme};
+  color: ${bronze};
+  border: 1px solid ${bronze};
 `
 
 const Action = styled.button`
@@ -67,7 +95,7 @@ var Wrapper = styled.div`
   background-color: ${creme};
   border: 1px solid ${bronze};
 
-  ${TextField} {
+  ${TextField}, ${TextArea}, ${Select} {
     margin-bottom: 10px;
   }
 `
@@ -97,13 +125,25 @@ const AddItemModal = ({
         <Label>Title:</Label>
         <TextField type="text" value={title} onChange={setTitle} />
         <Label>Type:</Label>
-        <TextField type="text" value={type} onChange={setType} />
-        <Label>Description:</Label>
-        <TextField type="text" value={description} onChange={setDescription} />
+        <Select type="text" value={type} onChange={setType}>
+          {categories.map(x => (
+            <option key={x} value={x}>
+              {x}
+            </option>
+          ))}
+        </Select>
         <Label>Age:</Label>
-        <TextField type="text" value={age} onChange={setAge} />
+        <Select value={age} onChange={setAge}>
+          {ages.map(x => (
+            <option key={x} value={x}>
+              {x}
+            </option>
+          ))}
+        </Select>
         <Label>Tags:</Label>
         <TextField type="text" value={tags} onChange={setTags} />
+        <Label>Description:</Label>
+        <TextArea type="text" value={description} onChange={setDescription} />
         <Action disabled={isLoading} onClick={handleSubmit}>
           Add
         </Action>
