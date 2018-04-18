@@ -2,6 +2,7 @@ const express = require("express")
 const passport = require("passport")
 const R = require("ramda")
 const { Entity } = require("../models/entity")
+const { Profile } = require("../models/profile")
 
 const requireAuth = passport.authenticate("jwt", { session: false })
 

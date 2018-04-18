@@ -20,7 +20,6 @@ var Label = styled.label`
 
 var TextField = styled.input`
   width: 100%;
-  text-align: center;
   padding: 5px;
   font-family: "BloggerSansLight", sans-serif;
   font-size: 18px;

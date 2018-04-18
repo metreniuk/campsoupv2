@@ -29,7 +29,13 @@ function signup(req, res) {
       return user
         .save()
         .then(savedUser =>
-          res.status(201).json({ token: generateToken(savedUser) })
+          res
+            .status(201)
+            .json({
+              token: generateToken(savedUser),
+              id: savedUser.id,
+              email: savedUser.email,
+            })
         )
         .catch(() =>
           res.status(422).json({ message: "Could not save the user" })
@@ -39,7 +45,9 @@ function signup(req, res) {
 }
 
 function signin(req, res) {
-  return res.send({ token: generateToken(req.user) })
+  let { user } = req
+  let { id, email } = user
+  return res.send({ token: generateToken(user), id, email })
 }
 
 const AuthController = express.Router()
