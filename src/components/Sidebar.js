@@ -67,7 +67,7 @@ const Sidebar = () => (
     </LogoLink>
     <Menu>
       <MenuHeading>Projects</MenuHeading>
-      <Link to="/projects">
+      <Link to="/projects/last">
         <MenuItem>Last</MenuItem>
       </Link>
     </Menu>

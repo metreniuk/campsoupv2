@@ -1,3 +1,4 @@
+// @flow
 import React from "react"
 import styled from "styled-components"
 
@@ -67,6 +68,16 @@ var IndexCell = styled(Cell)`
     color: ${creme};
     background-color: ${bronze};
   }
+`
+
+var AddCell = styled(IndexCell)`
+  width: 21px;
+  height: 30px;
+  position: absolute;
+  color: ${bronze};
+  font-size: 12px;
+  border: 1px solid ${bronze};
+  border-radius: 4px;
 `
 
 var CellAction = styled.button`
@@ -180,15 +191,15 @@ var Wrapper = styled.div`
 
 const Project = () => (
   <Wrapper>
-    <Title>Последний</Title>
+    <Title>Last</Title>
     <Table>
       <Row>
         <IndexCell />
-        <HeadingCell bgColor="#ff8a80">Названия</HeadingCell>
-        <HeadingCell bgColor="#a7ffeb">Характеристики</HeadingCell>
-        <HeadingCell bgColor="#ccff90">Возраст</HeadingCell>
+        <HeadingCell bgColor="#ff8a80">Title</HeadingCell>
+        <HeadingCell bgColor="#a7ffeb">Description</HeadingCell>
+        <HeadingCell bgColor="#ccff90">Type</HeadingCell>
         <HeadingCell bgColor="#ffd180">
-          Инвентарь
+          Age{" "}
           <CellMenu>
             <CellMenuItem bgColor="#ffd180">
               <FontAwesomeIcon icon={trash} />
@@ -207,49 +218,50 @@ const Project = () => (
             <Control>
               <FontAwesomeIcon icon={print} />
             </Control>
-          </ControlsGroup>
+          </ControlsGroup>{" "}
         </HeadingCell>
+        {/* <HeadingCell bgColor="#ffd180">
+          Инвентарь
+        </HeadingCell> */}
       </Row>
       <Row>
         <IndexCell>1</IndexCell>
-        <Cell>Футбол</Cell>
+        <Cell>Football</Cell>
         <Cell>
-          <MultilineOverflow>
-            {" "}
-            в помещении, дождь, развитие на улице, группа, без инвентаря и
-            многое другое
-          </MultilineOverflow>
+          <MultilineOverflow> a game for everyone</MultilineOverflow>
         </Cell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
+        <Cell>sport</Cell>
+        <Cell>0 - 20</Cell>
       </Row>
       <Row>
         <IndexCell>2</IndexCell>
-        <Cell>Футбол</Cell>
+        <Cell>Day of friends</Cell>
         <Cell>
           <MultilineOverflow>
-            в помещении, дождь, развитие на улице, группа, без инвентаря и
-            многое другое
+            a day when everyone could make new friends
           </MultilineOverflow>
         </Cell>
-        <Cell>12 - 14 лет</Cell>
-        <Cell>мяч</Cell>
+        <Cell>events</Cell>
+        <Cell>0 - 10</Cell>
       </Row>
       <Row>
         <IndexCell>3</IndexCell>
-        <Cell>Футбол</Cell>
+        <Cell>Hello camp!</Cell>
         <Cell>
           <MultilineOverflow>
-            в помещении, дождь, развитие на улице, группа, без инвентаря и
-            многое другое
+            a scene where all the workers say hello to the children in a fun way
           </MultilineOverflow>
         </Cell>
-        <Cell>12 - 14 лет</Cell>
+        <Cell> scenes</Cell>
         <Cell>
-          <CellAction>Выбрать</CellAction>
+          0 - 10
+          {/* <CellAction>Выбрать</CellAction> */}
         </Cell>
       </Row>
     </Table>
+    <AddCell>
+      <FontAwesomeIcon icon={plus} />
+    </AddCell>
   </Wrapper>
 )
 
