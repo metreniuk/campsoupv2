@@ -4,7 +4,12 @@ import { connect } from "react-redux"
 import BottomPanel from "../components/BottomPanel"
 import type { FilterType, CategoryType } from "../types"
 // import { withFetch } from "../components/Fetch"
-import { fetchCategory } from "./actions"
+import {
+  fetchCategory,
+  fetchFavorites,
+  deleteFavorite,
+  postFavorite,
+} from "./actions"
 import { getCategoryItems } from "./reducer"
 
 type Props = {
@@ -22,16 +27,15 @@ const handleHeaderItemClick = ({ setDisplayType, dispatch }) => type => {
   dispatch(fetchCategory(type))
 }
 
-function componentDidMount() {
-  this.props.dispatch(fetchCategory("all"))
+function handleFavoriteClick({ dispatch }) {
+  return (id, isFavorite) =>
+    isFavorite ? dispatch(deleteFavorite(id)) : dispatch(postFavorite(id))
 }
 
-// const fetchPropsMapper = ({ displayType }) => ({
-//   url: `http://localhost:3030/entity/${
-//     displayType !== "all" ? displayType : ""
-//   }`,
-//   refetchKey: displayType,
-// })
+function componentDidMount() {
+  this.props.dispatch(fetchFavorites("5ad7a447856c0a679da9f4f8"))
+  this.props.dispatch(fetchCategory("all"))
+}
 
 //TODO move all logic away from bottom panel to normalized redux + local state filter
 
@@ -40,7 +44,7 @@ const BottomPanelContainer = compose(
   withState("isOpen", "setOpen", true),
   withState("filter", "setFilter", ""),
   withState("displayType", "setDisplayType", "all"),
-  withHandlers({ toggleOpen, handleHeaderItemClick }),
+  withHandlers({ toggleOpen, handleHeaderItemClick, handleFavoriteClick }),
   lifecycle({ componentDidMount })
 )(BottomPanel)
 

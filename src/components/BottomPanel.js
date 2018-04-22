@@ -55,8 +55,8 @@ const FilterItem = styled.button`
   padding: 6px;
   border: 1px solid ${amber};
   border-radius: 4px;
-  color: ${amber};
-  background-color: ${canary};
+  color: ${props => (props.isActive ? canary : amber)};
+  background-color: ${props => (props.isActive ? amber : canary)};
 `
 
 const Filters = styled.div`
@@ -79,12 +79,14 @@ const Separator = styled.div`
 `
 const TileStar = styled.div`
   position: absolute;
+  padding: 2px;
   top: 4px;
   right: 4px;
   font-size: 8px;
+  cursor: pointer;
 `
 
-const Tile = styled(Link)`
+const Tile = styled.div`
   position: relative;
   padding: 12px 4px;
   text-align: center;
@@ -133,11 +135,13 @@ type Props = {
   displayType: DisplayType,
   tiles: Array<TileType>,
   toggleOpen: () => void,
-  setFilter: (filter: FilterType) => void,
+  setFilter: (filter: FilterType | "") => void,
   handleHeaderItemClick: (type: DisplayType) => void,
+  handleFavoriteClick: (id: string, isFavorite: boolean) => void,
 }
 
 type TileType = {
+  id: string,
   link: string,
   title: string,
   type: CategoryType,
@@ -148,9 +152,11 @@ const BottomPanel = ({
   isOpen,
   displayType,
   toggleOpen,
+  filter,
   setFilter,
   tiles,
   handleHeaderItemClick,
+  handleFavoriteClick,
 }: Props) => (
   <Wrapper isOpen={isOpen}>
     <Header>
@@ -176,23 +182,33 @@ const BottomPanel = ({
     </Header>
     <Filters>
       <FiltersHeading>Filter:</FiltersHeading>
-      <FilterItem onClick={() => setFilter("favorite")}>
-        <FontAwesomeIcon icon={starSolid} />
+      <FilterItem
+        isActive={filter === "favorite"}
+        onClick={() =>
+          filter === "favorite" ? setFilter("") : setFilter("favorite")
+        }
+      >
+        <FontAwesomeIcon icon={starRegular} />
       </FilterItem>
-      <FilterItem onClick={() => setFilter("weather")}>
+      {/* <FilterItem onClick={() => setFilter("weather")}>
         <FontAwesomeIcon icon={cloudSolid} />
       </FilterItem>
       <FilterItem onClick={() => setFilter("tags")}>Tags</FilterItem>
-      <FilterItem onClick={() => setFilter("age")}>Age</FilterItem>
+      <FilterItem onClick={() => setFilter("age")}>Age</FilterItem> */}
     </Filters>
     <Separator />
     <TilesSection>
-      {tiles.map(
-        ({ title, isFavorite = false, type }: TileType) =>
-          (displayType === "all" || type === displayType) && (
-            <Tile key={title} to={`/${type}`}>
+      {tiles.map(({ id, title, isFavorite, type }: TileType) => {
+        const showByFilter =
+          filter === "" || (filter === "favorite" && isFavorite)
+        const showByType = displayType === "all" || type === displayType
+
+        return (
+          showByFilter &&
+          showByType && (
+            <Tile key={title}>
               {title}
-              <TileStar>
+              <TileStar onClick={() => handleFavoriteClick(id, isFavorite)}>
                 {isFavorite ? (
                   <FontAwesomeIcon icon={starSolid} />
                 ) : (
@@ -201,7 +217,8 @@ const BottomPanel = ({
               </TileStar>
             </Tile>
           )
-      )}
+        )
+      })}
     </TilesSection>
   </Wrapper>
 )

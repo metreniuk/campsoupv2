@@ -2,7 +2,12 @@
 import Category from "./Category"
 import { compose, mapProps, lifecycle, withHandlers } from "recompose"
 import { connect } from "react-redux"
-import { fetchCategory, openCategoryModal } from "./actions"
+import {
+  fetchCategory,
+  openCategoryModal,
+  postFavorite,
+  deleteFavorite,
+} from "./actions"
 import { getCategoryItemsByType } from "./reducer"
 
 function componentDidMount() {
@@ -16,13 +21,18 @@ function handleAddClick({ dispatch }) {
   }
 }
 
+function handleFavoriteClick({ dispatch }) {
+  return (id, isFavorite) =>
+    isFavorite ? dispatch(deleteFavorite(id)) : dispatch(postFavorite(id))
+}
+
 const CategoryContainer = compose(
   mapProps(props => ({ categoryId: props.match.params.categoryId })),
   connect((state, props) => ({
     entities: getCategoryItemsByType(state.category, props),
   })),
   lifecycle({ componentDidMount }),
-  withHandlers({ handleAddClick })
+  withHandlers({ handleAddClick, handleFavoriteClick })
 )(Category)
 
 export default CategoryContainer

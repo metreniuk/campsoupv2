@@ -1,13 +1,14 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
-const ProfileSchema = mongoose.Schema(
+const ProfileSchema = Schema(
   {
     accountId: {
       type: String,
       required: true,
     },
     projects: [String],
-    favorites: [String],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
     tags: [String],
   },
   { timestamps: true }

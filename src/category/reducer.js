@@ -48,23 +48,50 @@ const allIds = handleActions(
   []
 )
 
+const favoriteIds = handleActions(
+  {
+    FETCH_FAVORITES_END: (state, { payload: ids }) => {
+      const unique = ids.filter(id => !state.includes(id))
+      return [...state, ...unique]
+    },
+    ADD_FAVORITE: (state, { payload: { id } }) => state.concat(id),
+    REMOVE_FAVORITE: (state, { payload: { id } }) =>
+      state.filter(x => x !== id),
+  },
+  []
+)
+
 const getAllIds = state => state.allIds
 const getById = state => state.byId
+const getFavoriteIds = state => state.favoriteIds
 const getCategoryId = (_, props) => props.categoryId
 
-const getCategoryItems = createSelector([getAllIds, getById], (allIds, byId) =>
-  allIds.map(id => byId[id])
+const getCategoryItems = createSelector(
+  getAllIds,
+  getById,
+  getFavoriteIds,
+  (allIds, byId, favoriteIds) =>
+    allIds
+      .map(id => byId[id])
+      .map(x => ({ ...x, isFavorite: favoriteIds.includes(x.id) }))
 )
 
 const getCategoryItemsByType = createSelector(
-  [getAllIds, getById, getCategoryId],
-  (allIds, byId, categoryId) =>
-    allIds.map(id => byId[id]).filter(item => item.type === categoryId)
+  getAllIds,
+  getById,
+  getCategoryId,
+  getFavoriteIds,
+  (allIds, byId, categoryId, favoriteIds) =>
+    allIds
+      .map(id => byId[id])
+      .filter(item => item.type === categoryId)
+      .map(x => ({ ...x, isFavorite: favoriteIds.includes(x.id) }))
 )
 
 const category = combineReducers({
   byId,
   allIds,
+  favoriteIds,
   isModalOpen,
   isLoading,
   hasError,

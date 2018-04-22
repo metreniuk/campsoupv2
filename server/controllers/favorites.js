@@ -30,7 +30,7 @@ router
           profile ? profile : Promise.reject({ message: "Account not found" })
       )
       .then(R.prop("favorites"))
-      .then(item => res.status(200).json(item))
+      .then(items => res.status(200).json({ items }))
       .catch(
         err =>
           err.message
@@ -42,30 +42,37 @@ router
   })
   .post((req, res) => {
     const { body: { entityId }, params: { accountId } } = req
-
+    console.log("EEE ID:", entityId)
     if (!entityId) {
       return res.status(400).json({ message: "Provide a valid entity id" })
     }
 
     Profile.findOne({ accountId })
       .then(profile => (profile ? profile : createProfile(accountId)))
+      .then(
+        profile =>
+          ~profile.favorites.indexOf(entityId)
+            ? Promise.reject({ message: "Already existing entity id" })
+            : profile
+      )
       .then(profile => {
-        if (!profile.favorites.includes(entityId)) {
-          profile.favorites = [...profile.favorites, entityId]
-        }
+        profile.favorites = [...profile.favorites, entityId]
         return profile
       })
       .then(profile => profile.save())
       .then(savedProfile => res.status(201).json(savedProfile))
       .catch(err => {
-        const errorMessages = Object.values(err.errors)
-          .map(R.prop("message"))
-          .reduce(
-            ({ messages }, message) => ({
-              messages: [...messages, message],
-            }),
-            { messages: [] }
-          )
+        if (err.message) {
+          return res.status(400).json({ message: err.message })
+        }
+        // const errorMessages = Object.values(err.errors)
+        //   .map(R.prop("message"))
+        //   .reduce(
+        //     ({ messages }, message) => ({
+        //       messages: [...messages, message],
+        //     }),
+        //     { messages: [] }
+        //   )
 
         return res.status(400).json(err)
       })
@@ -80,7 +87,7 @@ router
           profile ? profile : Promise.reject({ message: "Account not found" })
       )
       .then(profile => {
-        if (profile.favorites.includes(entityId)) {
+        if (~profile.favorites.indexOf(entityId)) {
           let index = profile.favorites.indexOf(entityId)
           profile.favorites.splice(index, 1)
           return profile

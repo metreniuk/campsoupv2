@@ -72,6 +72,10 @@ var VerboseCell = styled(Cell)`
   text-overflow: ellipsis;
 `
 
+var ButtonCell = styled(Cell)`
+  cursor: pointer;
+`
+
 var AddButton = styled.div`
   padding: 2px 20px;
   display: flex;
@@ -106,9 +110,15 @@ type Props = {
   categoryId: CategoryType,
   entities: Array<CategoryItem>,
   handleAddClick: () => void,
+  handleFavoriteClick: (id: string) => void,
 }
 
-var Category = ({ entities, categoryId, handleAddClick }: Props) => (
+var Category = ({
+  entities,
+  categoryId,
+  handleAddClick,
+  handleFavoriteClick,
+}: Props) => (
   <Wrapper>
     <Title>{categoryId}</Title>
     <Table>
@@ -122,12 +132,12 @@ var Category = ({ entities, categoryId, handleAddClick }: Props) => (
         <HeadingCell>Age</HeadingCell>
         <HeadingCell>Inventory</HeadingCell>
       </Row>
-      {entities.map(({ title, description, age }, index) => (
-        <Row key={title}>
+      {entities.map(({ id, title, description, age, isFavorite }, index) => (
+        <Row key={id}>
           <Cell>{index + 1}</Cell>
-          <Cell>
-            <FontAwesomeIcon icon={starRegular} />
-          </Cell>
+          <ButtonCell onClick={() => handleFavoriteClick(id, isFavorite)}>
+            <FontAwesomeIcon icon={isFavorite ? starSolid : starRegular} />
+          </ButtonCell>
           <Cell>{title}</Cell>
           <VerboseCell>{description}</VerboseCell>
           <Cell>{age}</Cell>
