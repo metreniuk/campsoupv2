@@ -3,6 +3,7 @@
 import React from "react"
 import styled from "styled-components"
 import { creme, darkBlue, skyBlue } from "../constants/colors"
+import { Link } from "react-router-dom"
 
 const Wrapper = styled.div`
   background-color: ${skyBlue};
@@ -35,6 +36,11 @@ const SubContent = styled.div`
 `
 
 const SubTitle = styled.h3`
+  font-family: "BloggerSansLight", sans-serif;
+  font-size: 22px;
+`
+
+const SubLink = styled(Link)`
   font-family: "BloggerSansLight", sans-serif;
   font-size: 22px;
 `
@@ -86,7 +92,7 @@ const Layout = styled.div`
     margin-bottom: 35px;
   }
 
-  ${SubTitle} {
+  ${SubTitle}, ${SubLink} {
     margin-bottom: 30px;
   }
 
@@ -116,16 +122,16 @@ const SignupPage = ({
   <Layout>
     <Wrapper>
       <Content>
-        <Title>Быстрая регистрация</Title>
+        <Title>Fast Registration</Title>
         <SubContent>
-          <SubTitle>это займет всего минуту</SubTitle>
-          <Socials>
+          <SubTitle>it will take a minute</SubTitle>
+          {/* <Socials>
             <SocialIcon src="/assets/images/vk_social.png" />
             <SocialIcon src="/assets/images/fb_social.png" />
             <SocialIcon src="/assets/images/ok_social.png" />
             <SocialIcon src="/assets/images/google_social.png" />
-          </Socials>
-          <SubTitle>или</SubTitle>
+          </Socials>*/}
+          <SubLink to="/signin">or login</SubLink>
           <TextField
             type="email"
             placeholder="e-mail"
@@ -134,11 +140,11 @@ const SignupPage = ({
           />
           <TextField
             type="password"
-            placeholder="пароль"
+            placeholder="password"
             value={password}
             onChange={handlePasswordChange}
           />
-          <Action onClick={handleSubmit}>Готово!</Action>
+          <Action onClick={handleSubmit}>Done!</Action>
         </SubContent>
       </Content>
     </Wrapper>

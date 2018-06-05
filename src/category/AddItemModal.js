@@ -31,6 +31,10 @@ var TextField = styled.input`
   &::placeholder {
     color: ${creme};
   }
+
+  ${Wrapper} & {
+    margin-bottom: 10px;
+  }
 `
 
 var TextArea = styled.textarea`

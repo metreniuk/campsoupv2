@@ -1,5 +1,6 @@
 // @flow
 import { withHandlers, withState, compose } from "recompose"
+import { connect } from "react-redux"
 import Signin from "./Signin"
 
 const TOKEN_KEY = "UserToken"
@@ -24,6 +25,7 @@ const handleSubmit = ({
   setEmail,
   setPassword,
   history,
+  dispatch,
 }) => () => {
   fetch("http://localhost:3030/auth/signin", {
     body: JSON.stringify({ email, password }),
@@ -33,7 +35,10 @@ const handleSubmit = ({
     },
   })
     .then(res => res.json())
-    .then(({ token }) => localStorage.setItem(TOKEN_KEY, token))
+    .then(({ token, id }) => {
+      dispatch({ type: "ADD_ACCOUNT_ID", payload: id })
+      localStorage.setItem(TOKEN_KEY, token)
+    })
     .then(() => history.push("/"))
     // TODO implement visual error handling
     .catch(() => {
@@ -47,6 +52,7 @@ const SigninContainer = compose(
   withState("isAuthenticated", "setAuthenticated", false),
   withState("email", "setEmail", ""),
   withState("password", "setPassword", ""),
+  connect(),
   withHandlers({ handleEmailChange, handlePasswordChange, handleSubmit })
 )(Signin)
 

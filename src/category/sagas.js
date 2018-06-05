@@ -3,18 +3,17 @@ import { call, put, takeEvery } from "redux-saga/effects"
 import * as actions from "./actions"
 
 const accountId = "5ad7a447856c0a679da9f4f8"
+const baseUrl = "http://localhost:3030"
 
 const Api = {
   fetchCategory: (type = "all") =>
-    fetch(`http://localhost:3030/entities/${type !== "all" ? type : ""}`).then(
-      res => res.json()
-    ),
-  fetchFavorites: (accountId = "5ad7a447856c0a679da9f4f8") =>
-    fetch(`http://localhost:3030/favorites/${accountId}`).then(res =>
+    fetch(`${baseUrl}/entities/${type !== "all" ? type : ""}`).then(res =>
       res.json()
     ),
+  fetchFavorites: (accountId = "5ad7a447856c0a679da9f4f8") =>
+    fetch(`${baseUrl}/favorites/${accountId}`).then(res => res.json()),
   postCategoryItem: item =>
-    fetch("http://localhost:3030/entities", {
+    fetch(`${baseUrl}/entities`, {
       body: JSON.stringify({ item }),
       method: "POST",
       headers: {
@@ -22,7 +21,7 @@ const Api = {
       },
     }).then(res => (res.ok ? res.json() : Promise.reject(res.json()))),
   postFavorite: entityId =>
-    fetch(`http://localhost:3030/favorites/${accountId}`, {
+    fetch(`${baseUrl}/favorites/${accountId}`, {
       body: JSON.stringify({ entityId }),
       method: "POST",
       headers: {
@@ -30,7 +29,7 @@ const Api = {
       },
     }).then(res => (res.ok ? res.json() : Promise.reject(res.json()))),
   deleteFavorite: entityId =>
-    fetch(`http://localhost:3030/favorites/${accountId}`, {
+    fetch(`${baseUrl}/favorites/${accountId}`, {
       body: JSON.stringify({ entityId }),
       method: "DELETE",
       headers: {

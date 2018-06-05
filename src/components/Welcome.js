@@ -32,7 +32,7 @@ const ActionsWrapper = styled.div`
 const Action = styled(Link)`
   display: flex;
   align-items: center;
-  text-align: center;
+  justify-content: center;
   width: 125px;
   height: 125px;
   font-size: 27px;
@@ -65,14 +65,17 @@ const Welcome = () => (
     <Content>
       <MealImage src="/assets/images/landing_meal.png" />
       <ActionsWrapper>
-        <Action to="/home">База Данных</Action>
-        <Title>Лагернй С.У.П.</Title>
-        <Action to="/projects">Начать Работу</Action>
+        <Action to="/">Archive</Action>
+        <Title>Camp Soup</Title>
+        <Action to="/signup">Signup</Action>
       </ActionsWrapper>
       <Description>
-        С.У.П. - Система Управления Программой лагеря, созданная, чтобы помочь
+        The Camp Management System - SOUP, created to help coordinators at the
+        planning stage of the camp season. SOUP contains a constantly updated
+        database with games, skits, songs and many more.
+        {/* С.У.П. - Система Управления Программой лагеря, созданная, чтобы помочь
         координаторам на этапе планирования заезда. С.У.П. содержит постоянно
-        пополняемую базу данных с играми, сценками, песнями и ещё многим другим.
+        пополняемую базу данных с играми, сценками, песнями и ещё многим другим. */}
       </Description>
     </Content>
   </Wrapper>

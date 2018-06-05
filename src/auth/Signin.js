@@ -115,15 +115,15 @@ const SigninPage = ({
   <Layout>
     <Wrapper>
       <Content>
-        <Title>Вход</Title>
+        <Title>Login</Title>
         <SubContent>
-          <Socials>
+          {/* <Socials>
             <SocialIcon src="/assets/images/vk_social.png" />
             <SocialIcon src="/assets/images/fb_social.png" />
             <SocialIcon src="/assets/images/ok_social.png" />
             <SocialIcon src="/assets/images/google_social.png" />
           </Socials>
-          <SubTitle>или</SubTitle>
+          <SubTitle>или</SubTitle> */}
           <TextField
             type="email"
             placeholder="e-mail"
@@ -132,11 +132,11 @@ const SigninPage = ({
           />
           <TextField
             type="password"
-            placeholder="пароль"
+            placeholder="password"
             value={password}
             onChange={handlePasswordChange}
           />
-          <Action onClick={handleSubmit}>Готово!</Action>
+          <Action onClick={handleSubmit}>Done!</Action>
         </SubContent>
       </Content>
     </Wrapper>

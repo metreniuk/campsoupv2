@@ -5,7 +5,8 @@ import Project from "./Project"
 
 const Projects = ({ match }) => (
   <div>
-    <Route path={`${match.path}/:projectId`} component={Project} />
+    <Route path={`${match.path}`} component={Project} />
+    {/* <Route path={`${match.path}/:projectId`} component={Project} /> */}
   </div>
 )
 

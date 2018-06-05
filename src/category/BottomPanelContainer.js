@@ -33,14 +33,18 @@ function handleFavoriteClick({ dispatch }) {
 }
 
 function componentDidMount() {
-  this.props.dispatch(fetchFavorites("5ad7a447856c0a679da9f4f8"))
+  console.log("fetch favs", this.props.account)
+  this.props.dispatch(fetchFavorites())
   this.props.dispatch(fetchCategory("all"))
 }
 
 //TODO move all logic away from bottom panel to normalized redux + local state filter
 
 const BottomPanelContainer = compose(
-  connect(state => ({ tiles: getCategoryItems(state.category) })),
+  connect(state => ({
+    tiles: getCategoryItems(state.category),
+    account: state.account,
+  })),
   withState("isOpen", "setOpen", true),
   withState("filter", "setFilter", ""),
   withState("displayType", "setDisplayType", "all"),
