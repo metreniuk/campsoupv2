@@ -10,7 +10,8 @@ import cloudSolid from "@fortawesome/fontawesome-free-solid/faCloud"
 import starRegular from "@fortawesome/fontawesome-free-regular/faStar"
 import { amber, canary } from "../constants/colors"
 import CategoryNavList from "../components/CategoryNavList"
-import type { FilterType, CategoryType } from "../types"
+// import type { FilterType, CategoryType } from "../types"
+import {useDrag} from 'react-dnd'
 
 const Header = styled.header`
   position: relative;
@@ -99,6 +100,7 @@ const Tile = styled.div`
   background-color: ${amber};
   border-radius: 4px;
   color: ${canary};
+  opacity: ${props => props.isDragging ? 0.3 : 1}
 `
 
 const TilesSection = styled.section`
@@ -128,25 +130,38 @@ const Wrapper = styled.div`
   }
 `
 
-type DisplayType = CategoryType | "all"
-type Props = {
-  isOpen: boolean,
-  filter: FilterType,
-  displayType: DisplayType,
-  tiles: Array<TileType>,
-  toggleOpen: () => void,
-  setFilter: (filter: FilterType | "") => void,
-  handleHeaderItemClick: (type: DisplayType) => void,
-  handleFavoriteClick: (id: string, isFavorite: boolean) => void,
-}
+const TileContainer = (props) => {
+  const [{isDragging}, dragRef] = useDrag({
+    item: { id: props.id, type: props.type, title: props.title },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
 
-type TileType = {
-  id: string,
-  link: string,
-  title: string,
-  type: CategoryType,
-  isFavorite: boolean,
-}
+  return (
+    <Tile innerRef={dragRef} {...props} isDragging={isDragging} />
+  )
+};
+
+// type DisplayType = CategoryType | "all"
+// type Props = {
+//   isOpen: boolean,
+//   filter: FilterType,
+//   displayType: DisplayType,
+//   tiles: Array<TileType>,
+//   toggleOpen: () => void,
+//   setFilter: (filter: FilterType | "") => void,
+//   handleHeaderItemClick: (type: DisplayType) => void,
+//   handleFavoriteClick: (id: string, isFavorite: boolean) => void,
+// }
+
+// type TileType = {
+//   id: string,
+//   link: string,
+//   title: string,
+//   type: CategoryType,
+//   isFavorite: boolean,
+// }
 
 const BottomPanel = ({
   isOpen,
@@ -157,70 +172,70 @@ const BottomPanel = ({
   tiles,
   handleHeaderItemClick,
   handleFavoriteClick,
-}: Props) => (
-  <Wrapper isOpen={isOpen}>
-    <Header>
-      <HeaderButton onClick={toggleOpen}>
-        {isOpen ? (
-          <FontAwesomeIcon icon={chevronDown} />
-        ) : (
-          <FontAwesomeIcon icon={chevronUp} />
-        )}
-      </HeaderButton>
-      <CategoryNavList>
-        {links => [
-          <HeaderItem key="all" onClick={() => handleHeaderItemClick("all")}>
-            All
+}) => (
+    <Wrapper isOpen={isOpen}>
+      <Header>
+        <HeaderButton onClick={toggleOpen}>
+          {isOpen ? (
+            <FontAwesomeIcon icon={chevronDown} />
+          ) : (
+              <FontAwesomeIcon icon={chevronUp} />
+            )}
+        </HeaderButton>
+        <CategoryNavList>
+          {links => [
+            <HeaderItem key="all" onClick={() => handleHeaderItemClick("all")}>
+              All
           </HeaderItem>,
-          ...links.map(({ id, name }) => (
-            <HeaderItem key={id} onClick={() => handleHeaderItemClick(id)}>
-              {name}
-            </HeaderItem>
-          )),
-        ]}
-      </CategoryNavList>
-    </Header>
-    <Filters>
-      <FiltersHeading>Filter:</FiltersHeading>
-      <FilterItem
-        isActive={filter === "favorite"}
-        onClick={() =>
-          filter === "favorite" ? setFilter("") : setFilter("favorite")
-        }
-      >
-        <FontAwesomeIcon icon={starRegular} />
-      </FilterItem>
-      {/* <FilterItem onClick={() => setFilter("weather")}>
+            ...links.map(({ id, name }) => (
+              <HeaderItem key={id} onClick={() => handleHeaderItemClick(id)}>
+                {name}
+              </HeaderItem>
+            )),
+          ]}
+        </CategoryNavList>
+      </Header>
+      <Filters>
+        <FiltersHeading>Filter:</FiltersHeading>
+        <FilterItem
+          isActive={filter === "favorite"}
+          onClick={() =>
+            filter === "favorite" ? setFilter("") : setFilter("favorite")
+          }
+        >
+          <FontAwesomeIcon icon={starRegular} />
+        </FilterItem>
+        {/* <FilterItem onClick={() => setFilter("weather")}>
         <FontAwesomeIcon icon={cloudSolid} />
       </FilterItem>
       <FilterItem onClick={() => setFilter("tags")}>Tags</FilterItem>
       <FilterItem onClick={() => setFilter("age")}>Age</FilterItem> */}
-    </Filters>
-    <Separator />
-    <TilesSection>
-      {tiles.map(({ id, title, isFavorite, type }: TileType) => {
-        const showByFilter =
-          filter === "" || (filter === "favorite" && isFavorite)
-        const showByType = displayType === "all" || type === displayType
+      </Filters>
+      <Separator />
+      <TilesSection>
+        {tiles.map(({ id, title, isFavorite, type }) => {
+          const showByFilter =
+            filter === "" || (filter === "favorite" && isFavorite)
+          const showByType = displayType === "all" || type === displayType
 
-        return (
-          showByFilter &&
-          showByType && (
-            <Tile key={title}>
-              {title}
-              <TileStar onClick={() => handleFavoriteClick(id, isFavorite)}>
-                {isFavorite ? (
-                  <FontAwesomeIcon icon={starSolid} />
-                ) : (
-                  <FontAwesomeIcon icon={starRegular} />
-                )}
-              </TileStar>
-            </Tile>
+          return (
+            showByFilter &&
+            showByType && (
+              <TileContainer key={title} title={title} type={type} id={id}>
+                {title}
+                <TileStar onClick={() => handleFavoriteClick(id, isFavorite)}>
+                  {isFavorite ? (
+                    <FontAwesomeIcon icon={starSolid} />
+                  ) : (
+                      <FontAwesomeIcon icon={starRegular} />
+                    )}
+                </TileStar>
+              </TileContainer>
+            )
           )
-        )
-      })}
-    </TilesSection>
-  </Wrapper>
-)
+        })}
+      </TilesSection>
+    </Wrapper>
+  )
 
 export default BottomPanel

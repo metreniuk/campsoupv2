@@ -3,6 +3,8 @@ import { render } from "react-dom"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware, compose } from "redux"
 import createSagaMiddleware from "redux-saga"
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
 
 import App from "./components/App"
 import reducer from "./reducers"
@@ -20,7 +22,9 @@ sagaMiddleware.run(saga)
 
 render(
   <Provider store={store}>
-    <App />
+    <DndProvider backend={Backend}>
+      <App />
+    </DndProvider>
   </Provider>,
   document.getElementById("root")
 )

@@ -2,7 +2,6 @@
 import { compose, withState, withHandlers, lifecycle } from "recompose"
 import { connect } from "react-redux"
 import BottomPanel from "../components/BottomPanel"
-import type { FilterType, CategoryType } from "../types"
 // import { withFetch } from "../components/Fetch"
 import {
   fetchCategory,
@@ -12,15 +11,7 @@ import {
 } from "./actions"
 import { getCategoryItems } from "./reducer"
 
-type Props = {
-  isOpen: boolean,
-  filter: string,
-  displayType: CategoryType | "all",
-  setOpen: (openState: boolean) => void,
-  setFilter: (filter: FilterType) => void,
-}
-
-const toggleOpen = ({ isOpen, setOpen }: Props) => () => setOpen(!isOpen)
+const toggleOpen = ({ isOpen, setOpen }) => () => setOpen(!isOpen)
 
 const handleHeaderItemClick = ({ setDisplayType, dispatch }) => type => {
   setDisplayType(type)

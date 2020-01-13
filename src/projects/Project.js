@@ -1,6 +1,8 @@
 // @flow
-import React from "react"
+import * as React from "react"
+import * as R from 'ramda'
 import styled from "styled-components"
+import { connect } from "react-redux"
 
 import { bronze, creme } from "../constants/colors"
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
@@ -9,6 +11,15 @@ import trash from "@fortawesome/fontawesome-free-solid/faTrashAlt"
 import plus from "@fortawesome/fontawesome-free-solid/faPlus"
 import save from "@fortawesome/fontawesome-free-solid/faSave"
 import print from "@fortawesome/fontawesome-free-solid/faPrint"
+import {
+  fetchCategory,
+  fetchFavorites,
+  deleteFavorite,
+  postFavorite,
+} from "../category/actions"
+import { getCategoryItems, getById } from "../category/reducer"
+import {categories} from '../types'
+import { useDrop } from "react-dnd"
 
 var Title = styled.h1`
   font-family: "Neucha", cursive;
@@ -27,6 +38,8 @@ var Cell = styled.div`
   border-left: 1px solid ${bronze};
   border-top: 1px solid ${bronze};
   overflow: hidden;
+
+  background: ${props => props.isOver ? 'lightblue': null}
 
   &:last-child {
     border-right: 1px solid ${bronze};
@@ -58,7 +71,7 @@ var HeadingCell = styled(Cell)`
 `
 
 var IndexCell = styled(Cell)`
-  width: 20px;
+  width: 50px;
   border-radius: 4px 0 0 4px;
   transition: all 0.2s;
 
@@ -189,80 +202,89 @@ var Wrapper = styled.div`
   }
 `
 
-const Project = () => (
-  <Wrapper>
-    <Title>Last</Title>
-    <Table>
-      <Row>
-        <IndexCell />
-        <HeadingCell bgColor="#ff8a80">Title</HeadingCell>
-        <HeadingCell bgColor="#a7ffeb">Description</HeadingCell>
-        <HeadingCell bgColor="#ccff90">Type</HeadingCell>
-        <HeadingCell bgColor="#ffd180">
-          Age{" "}
-          <CellMenu>
-            <CellMenuItem bgColor="#ffd180">
-              <FontAwesomeIcon icon={trash} />
-            </CellMenuItem>
-            <CellMenuItem bgColor="#ffd180">
-              <FontAwesomeIcon icon={pencil} />
-            </CellMenuItem>
-          </CellMenu>
-          <ControlsGroup>
-            <Control>
-              <FontAwesomeIcon icon={plus} />
-            </Control>
-            <Control>
-              <FontAwesomeIcon icon={save} />
-            </Control>
-            <Control>
-              <FontAwesomeIcon icon={print} />
-            </Control>
-          </ControlsGroup>{" "}
-        </HeadingCell>
-        {/* <HeadingCell bgColor="#ffd180">
-          Инвентарь
-        </HeadingCell> */}
-      </Row>
-      <Row>
-        <IndexCell>1</IndexCell>
-        <Cell>Football</Cell>
-        <Cell>
-          <MultilineOverflow> a game for everyone</MultilineOverflow>
-        </Cell>
-        <Cell>sport</Cell>
-        <Cell>0 - 20</Cell>
-      </Row>
-      <Row>
-        <IndexCell>2</IndexCell>
-        <Cell>Day of friends</Cell>
-        <Cell>
-          <MultilineOverflow>
-            a day when everyone could make new friends
-          </MultilineOverflow>
-        </Cell>
-        <Cell>events</Cell>
-        <Cell>0 - 10</Cell>
-      </Row>
-      <Row>
-        <IndexCell>3</IndexCell>
-        <Cell>Hello camp!</Cell>
-        <Cell>
-          <MultilineOverflow>
-            a scene where all the workers say hello to the children in a fun way
-          </MultilineOverflow>
-        </Cell>
-        <Cell> scenes</Cell>
-        <Cell>
-          0 - 10
-          {/* <CellAction>Выбрать</CellAction> */}
-        </Cell>
-      </Row>
-    </Table>
-    <AddCell>
-      <FontAwesomeIcon icon={plus} />
-    </AddCell>
-  </Wrapper>
-)
+const CellContainer = props => {
+  const [{isOver, canDrop}, dropRef] = useDrop({
+    accept: categories,
+    drop: (item) => props.setCell(props.row, props.col, item.id),
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  })
+  return <Cell innerRef={dropRef} isOver={isOver}>{props.title || null}</Cell>
+}
 
-export default Project
+const RowContainer = props => {
+  const {index, items } = props
+  return (
+    <Row>
+      <IndexCell>{index}</IndexCell>
+      {items.map((item, col) => (
+        <CellContainer row={index} col={col} setCell={props.setCell} {...item} />
+      ))}
+    </Row>
+  )
+}
+
+const Project = props => {
+  const [rows, setRows] = React.useState([
+    {items: new Array(4).fill({})},
+    {items: new Array(4).fill({})},
+    {items: new Array(4).fill({})},
+    {items: new Array(4).fill({})},
+  ])
+  const setCell = React.useCallback((row, col, id) => {
+    let item = props.byId[id]
+    let newRow = R.evolve({items: R.adjust(col, R.always({title: item.title}))}, rows[row])
+    let newRows = R.adjust(row, R.always(newRow), rows)
+    setRows(newRows)
+  }, [rows, props.byId])
+
+  return (
+    <Wrapper>
+      <Title>Last</Title>
+      <Table>
+        <Row>
+          <IndexCell />
+          <HeadingCell bgColor="#ff8a80">День</HeadingCell>
+          <HeadingCell bgColor="#a7ffeb">Урок</HeadingCell>
+          <HeadingCell bgColor="#ccff90">Игра</HeadingCell>
+          <HeadingCell bgColor="#ffd180">
+            Золотой стих
+            <CellMenu>
+              <CellMenuItem bgColor="#ffd180">
+                <FontAwesomeIcon icon={trash} />
+              </CellMenuItem>
+              <CellMenuItem bgColor="#ffd180">
+                <FontAwesomeIcon icon={pencil} />
+              </CellMenuItem>
+            </CellMenu>
+            <ControlsGroup>
+              <Control>
+                <FontAwesomeIcon icon={plus} />
+              </Control>
+              <Control>
+                <FontAwesomeIcon icon={save} />
+              </Control>
+              <Control>
+                <FontAwesomeIcon icon={print} />
+              </Control>
+            </ControlsGroup>{" "}
+          </HeadingCell>
+        </Row>
+        {rows.map((row, i) => <RowContainer index={i} items={row.items} setCell={setCell} />)}
+      </Table>
+      <AddCell>
+        <FontAwesomeIcon icon={plus} />
+      </AddCell>
+    </Wrapper>
+  )
+}
+
+const ProjectContainer = connect(state => ({
+  allItems: getCategoryItems(state.category),
+  byId: getById(state.category),
+  account: state.account,
+}))(Project)
+
+export default ProjectContainer

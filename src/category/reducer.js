@@ -61,10 +61,17 @@ const favoriteIds = handleActions(
   []
 )
 
-const getAllIds = state => state.allIds
-const getById = state => state.byId
+export const getAllIds = state => state.allIds
+export const getById = state => state.byId
 const getFavoriteIds = state => state.favoriteIds
 const getCategoryId = (_, props) => props.categoryId
+
+// export const getAllItems = createSelector(
+//   getAllIds,
+//   getById,
+//   (allIds, byId) =>
+//     allIds.map(id => byId[id])
+// )
 
 const getCategoryItems = createSelector(
   getAllIds,
