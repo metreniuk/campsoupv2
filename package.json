@@ -10,7 +10,7 @@
     "@fortawesome/react-fontawesome": "0.0.17",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.4",
-    "express": "^4.16.2",
+    "express": "^4.18.2",
     "jwt-simple": "^0.5.1",
     "mongodb": "^3.0.4",
     "mongoose": "^5.0.9",
